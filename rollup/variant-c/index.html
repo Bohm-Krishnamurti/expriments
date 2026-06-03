@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI Roll-Up Playbook — Scrollytelling</title>
+<style>
+  :root{
+    --bg:#06070f;
+    --bg-2:#0b0e1d;
+    --ink:#eaf0ff;
+    --muted:#8b93b8;
+    --violet:#8b7bff;
+    --pink:#ff6fb0;
+    --cyan:#46e6ff;
+    --lime:#9bff8b;
+    --amber:#ffc25c;
+    --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","SF Pro Display",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    font-size:18px; line-height:1.55; overflow-x:hidden;
+    scroll-snap-type:y proximity;
+  }
+  a{color:var(--cyan); text-decoration:none;}
+  h1,h2,h3{font-weight:650; letter-spacing:-.02em; line-height:1.04;}
+
+  /* progress + dots */
+  .progress{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--violet),var(--pink),var(--cyan)); width:0; z-index:100;}
+  .dots{position:fixed; right:22px; top:50%; transform:translateY(-50%); z-index:90; display:flex; flex-direction:column; gap:13px;}
+  .dots a{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.22); transition:.3s; display:block;}
+  .dots a.active{background:var(--cyan); transform:scale(1.5); box-shadow:0 0 14px var(--cyan);}
+  .backlink{position:fixed; left:20px; top:18px; z-index:95; font-size:13px; color:var(--muted); letter-spacing:.04em;}
+  .backlink:hover{color:var(--ink);}
+  @media(max-width:680px){.dots{display:none;}}
+
+  /* panels */
+  .panel{min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:90px 7vw; position:relative; scroll-snap-align:start;}
+  .glow{position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; z-index:0; pointer-events:none;}
+  .panel > *{position:relative; z-index:1;}
+  .eyebrow{font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:var(--cyan); margin-bottom:20px;}
+  .big{font-size:clamp(38px,8vw,104px); margin:0;}
+  .grad{background:linear-gradient(120deg,#fff 10%,var(--violet) 55%,var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .lede{font-size:clamp(18px,2.4vw,26px); color:var(--muted); max-width:30ch; margin-top:26px;}
+  .meta-row{display:flex; gap:30px; flex-wrap:wrap; margin-top:46px; font-size:13px; color:var(--muted); letter-spacing:.04em;}
+  .meta-row b{color:var(--ink); display:block; font-size:30px; font-weight:650; letter-spacing:-.02em;}
+
+  .scroll-hint{position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:var(--muted); font-size:12px; letter-spacing:.2em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px;}
+  .scroll-hint .m{width:22px; height:34px; border:1px solid var(--line); border-radius:12px; position:relative;}
+  .scroll-hint .m::after{content:""; position:absolute; left:50%; top:7px; width:3px; height:7px; border-radius:2px; background:var(--cyan); transform:translateX(-50%); animation:scrolldot 1.6s ease infinite;}
+  @keyframes scrolldot{0%{opacity:0; transform:translate(-50%,0);}40%{opacity:1;}100%{opacity:0; transform:translate(-50%,12px);}}
+
+  /* statement reveal words */
+  .statement{font-size:clamp(28px,5.2vw,62px); max-width:18ch; font-weight:650; letter-spacing:-.02em;}
+  .statement .w{opacity:.12; transition:opacity .5s ease;}
+  .statement.lit .w{opacity:1;}
+  .statement .accent{color:var(--cyan);}
+
+  /* ===== Scrollytelling data section ===== */
+  .scrolly{position:relative; background:var(--bg-2);}
+  .scrolly .sticky{position:sticky; top:0; height:100vh; display:flex; align-items:center; justify-content:center; padding:6vh 4vw;}
+  .viz{width:min(760px,92vw);}
+  .viz h4{font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan); margin:0 0 4px;}
+  .viz .vsub{font-size:13px; color:var(--muted); margin-bottom:22px; min-height:18px;}
+  .steps{position:relative; z-index:2;}
+  .step{min-height:88vh; display:flex; align-items:center; max-width:440px; padding:0 6vw;}
+  .step .card{background:rgba(12,15,32,.78); backdrop-filter:blur(10px); border:1px solid var(--line); border-radius:18px; padding:26px 26px; box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .step .num{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--pink);}
+  .step h3{font-size:26px; margin:8px 0 10px;}
+  .step p{font-size:15.5px; color:var(--muted); margin:0;}
+  /* place sticky behind steps on desktop */
+  @media(min-width:900px){
+    .scrolly{display:grid; grid-template-columns:1fr 1fr;}
+    .scrolly .sticky{grid-column:1; align-items:center; justify-content:flex-start;}
+    .scrolly .steps{grid-column:2;}
+    .step{min-height:100vh;}
+  }
+
+  /* bars inside viz */
+  .vbar{display:grid; grid-template-columns:120px 1fr 56px; align-items:center; gap:10px; margin:5px 0; font-size:12.5px; opacity:.25; transition:opacity .5s;}
+  .vbar.on{opacity:1;}
+  .vbar .vl{text-align:right; color:var(--ink);}
+  .vtrack{height:16px; border-radius:8px; background:rgba(255,255,255,.06); overflow:hidden;}
+  .vfill{height:100%; width:0; border-radius:8px; transition:width .9s cubic-bezier(.2,.8,.2,1);}
+  .vbar .vv{color:var(--muted); font-variant-numeric:tabular-nums; font-size:12px;}
+
+  /* donut / scatter swap */
+  .vizstage{position:relative; min-height:420px;}
+  .layer{position:absolute; inset:0; opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .6s ease; pointer-events:none;}
+  .layer.active{opacity:1; transform:none; pointer-events:auto;}
+  svg text{fill:var(--muted); font-size:11px; font-family:inherit;}
+  .scAxis{stroke:rgba(255,255,255,.18);}
+  .scGrid{stroke:rgba(255,255,255,.07);}
+  .scDot{transition:r .4s ease;}
+  .scLbl{fill:var(--ink); font-size:11px;}
+
+  /* table panel */
+  .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.02);}
+  table{width:100%; border-collapse:collapse; font-size:14px; min-width:620px;}
+  th{text-align:left; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); padding:13px 14px; border-bottom:1px solid var(--line);}
+  td{padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink);}
+  tr:last-child td{border-bottom:none;}
+  td .co{font-weight:650;}
+  td.muted{color:var(--muted);}
+
+  /* cases */
+  .cases{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px; width:100%;}
+  @media(max-width:820px){.cases{grid-template-columns:1fr;}}
+  .case{border:1px solid var(--line); border-radius:20px; padding:26px; background:rgba(255,255,255,.025); transition:.3s;}
+  .case:hover{border-color:var(--cyan); transform:translateY(-4px);}
+  .case .tk{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--pink);}
+  .case h4{font-size:24px; margin:8px 0 2px;}
+  .case .ar{color:var(--muted); font-size:14px; margin-bottom:14px;}
+  .case dl{margin:0; font-size:13.5px;}
+  .case dt{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); margin-top:12px;}
+  .case dd{margin:3px 0 0; color:var(--muted);}
+
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .chips span{border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-size:13px; color:var(--muted);}
+  .chips span b{color:var(--ink);}
+
+  /* sources panel (scroll-normal) */
+  .srcpanel{padding:90px 7vw; background:var(--bg-2); scroll-snap-align:start;}
+  .sources{columns:2; column-gap:34px; font-size:12.5px; color:var(--muted); margin-top:24px;}
+  .sources div{break-inside:avoid; margin-bottom:8px;}
+  .sources .n{color:var(--violet);}
+  @media(max-width:640px){.sources{columns:1;}}
+  footer{padding:40px 7vw 70px; color:var(--muted); font-size:12px; letter-spacing:.1em; text-transform:uppercase; background:var(--bg-2);}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:.8s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<a class="backlink" href="../index.html">← all designs</a>
+<div class="dots" id="dots"></div>
+
+<!-- 0 INTRO -->
+<section class="panel" id="p-intro" data-dot="Intro">
+  <div class="glow" style="width:520px;height:520px;background:var(--violet);top:-120px;left:-80px;"></div>
+  <div class="glow" style="width:460px;height:460px;background:var(--pink);bottom:-120px;right:-60px;opacity:.35;"></div>
+  <div class="eyebrow">Field Report · Updated 02 June 2026</div>
+  <h1 class="big">The AI<br><span class="grad">Roll-Up</span><br>Playbook</h1>
+  <p class="lede">Market map, vertical prioritization, and the Europe opportunity — told as you scroll.</p>
+  <div class="meta-row">
+    <div><b>$4T</b>European services pool</div>
+    <div><b>11</b>verticals ranked</div>
+    <div><b>3</b>holdco archetypes</div>
+  </div>
+  <div class="scroll-hint"><div class="m"></div>Scroll</div>
+</section>
+
+<!-- 1 THESIS STATEMENT -->
+<section class="panel" id="p-thesis" data-dot="Thesis">
+  <div class="glow" style="width:560px;height:560px;background:var(--cyan);top:10%;right:-160px;opacity:.25;"></div>
+  <div class="eyebrow">The Operating Pattern</div>
+  <p class="statement" data-statement>
+    <span class="w">Buy</span> <span class="w">the</span> <span class="w">trusted</span> <span class="w">local</span> <span class="w">provider.</span>
+    <span class="w">Centralize</span> <span class="w">the</span> <span class="w accent">operating</span> <span class="w accent">system.</span>
+    <span class="w">Use</span> <span class="w">AI</span> <span class="w">to</span> <span class="w">expand</span> <span class="w">throughput,</span> <span class="w">quality</span> <span class="w">&amp;</span> <span class="w">margin.</span>
+    <span class="w">Then</span> <span class="w">acquire</span> <span class="w">more.</span>
+  </p>
+</section>
+
+<!-- 2 MODEL DIFF -->
+<section class="panel" id="p-model" data-dot="Model">
+  <div class="glow" style="width:480px;height:480px;background:var(--violet);bottom:-140px;left:30%;opacity:.3;"></div>
+  <div class="eyebrow reveal">What makes it different</div>
+  <h2 class="big reveal" style="font-size:clamp(28px,5vw,58px);margin-bottom:30px;">Ownership = the right<br>to redesign the work.</h2>
+  <div class="tablewrap reveal" style="max-width:1000px;">
+    <table>
+      <thead><tr><th>Model</th><th>Primary asset</th><th>Value creation</th><th>Limitation</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Vertical SaaS</td><td class="muted">Software product</td><td class="muted">Sell tools into workflows</td><td class="muted">Slow adoption</td></tr>
+        <tr><td class="co">PE roll-up</td><td class="muted">Acquired EBITDA</td><td class="muted">Centralize finance &amp; pricing</td><td class="muted">Work itself unchanged</td></tr>
+        <tr><td class="co" style="color:var(--cyan)">AI roll-up</td><td>Workflows + data + labor</td><td>Rebuild delivery w/ AI agents</td><td class="muted">Integration &amp; regulation</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 3 SCROLLYTELLING DATA STORY -->
+<div class="scrolly" id="p-data" data-dot="Data">
+  <div class="sticky">
+    <div class="viz">
+      <h4 id="vizTitle">Capital Flows</h4>
+      <div class="vsub" id="vizSub">Disclosed platform raises · USD millions</div>
+      <div class="vizstage">
+        <!-- layer 0: bars -->
+        <div class="layer active" id="layer-0"></div>
+        <!-- layer 1: ranking dots -->
+        <div class="layer" id="layer-1"></div>
+        <!-- layer 2: scatter -->
+        <div class="layer" id="layer-2">
+          <svg viewBox="0 0 640 420" id="scatter" style="width:100%"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step" data-step="0"><div class="card">
+      <div class="num">01 · Capital</div>
+      <h3>The money is concentrating</h3>
+      <p>Beacon’s $250m fund leads disclosed raises, with Eudia and Shield near $100m. The platforms cluster in accounting, MSP, legal, and property — exactly the document- and ticket-heavy verticals the thesis favors.</p>
+    </div></div>
+    <div class="step" data-step="1"><div class="card">
+      <div class="num">02 · Ranking</div>
+      <h3>Not all verticals are equal</h3>
+      <p>Scored 0–5, accounting and MSP top the field — recurring demand, measurable queues, and AI-addressable work. Healthcare RCM and property management follow, the latter strongest in Europe.</p>
+    </div></div>
+    <div class="step" data-step="2"><div class="card">
+      <div class="num">03 · Risk map</div>
+      <h3>Attractiveness vs difficulty</h3>
+      <p>Plot attractiveness against execution and regulatory difficulty. The upper-left quadrant — high reward, lower friction — is where accounting and MSP sit. Legal and construction are high-upside but harder.</p>
+    </div></div>
+  </div>
+</div>
+
+<!-- 4 EUROPE -->
+<section class="panel" id="p-europe" data-dot="Europe">
+  <div class="glow" style="width:500px;height:500px;background:var(--pink);top:-100px;right:-80px;opacity:.3;"></div>
+  <div class="eyebrow reveal">The Europe Opportunity</div>
+  <h2 class="big reveal" style="font-size:clamp(30px,6vw,72px);"><span class="grad">$4 trillion</span><br>of fragmented services.</h2>
+  <p class="lede reveal" style="max-width:46ch;">Less “replace a SaaS tool,” more “bring AI into sectors that never adopted vertical software.” The clearest wedges are property, tax/accounting/payroll, legal delivery, SME admin, and rental operations.</p>
+  <div class="chips reveal">
+    <span><b>Dwelly</b> · UK lettings</span>
+    <span><b>Buena</b> · DE property</span>
+    <span><b>Arbio</b> · DACH STR</span>
+    <span><b>Integral</b> · DE accounting</span>
+    <span><b>Taxforce</b> · DE tax</span>
+  </div>
+  <p class="lede reveal" style="max-width:48ch;font-size:16px;margin-top:30px;">The catch: cross-border scaling is hard. Winners may look like country-by-country operating systems, not one pan-European platform.</p>
+</section>
+
+<!-- 5 HOLDCO + CASES -->
+<section class="panel" id="p-cases" data-dot="Holdco">
+  <div class="glow" style="width:520px;height:520px;background:var(--violet);bottom:-160px;left:-60px;opacity:.3;"></div>
+  <div class="eyebrow reveal">The Endgame</div>
+  <h2 class="big reveal" style="font-size:clamp(28px,5vw,58px);">From one vertical<br>to an AI holding company.</h2>
+  <div class="cases">
+    <div class="case reveal">
+      <div class="tk">Services</div>
+      <h4>Thrive Holdings</h4>
+      <div class="ar">Permanent-capital AI operator</div>
+      <dl>
+        <dt>First wedge</dt><dd>Accounting &amp; IT services</dd>
+        <dt>Why ownership</dt><dd>Production loops between domain experts, owned workflows &amp; frontier AI (OpenAI).</dd>
+        <dt>Open question</dt><dd>Can it generalize beyond two verticals?</dd>
+      </dl>
+    </div>
+    <div class="case reveal">
+      <div class="tk">Industrial</div>
+      <h4>Project Prometheus</h4>
+      <div class="ar">Industrial AI ambition</div>
+      <dl>
+        <dt>First wedge</dt><dd>Engineering &amp; manufacturing</dd>
+        <dt>Why ownership</dt><dd>Bezos/Bajaj; ~$6.2bn; reported $100bn plan to modernize manufacturers.</dd>
+        <dt>Open question</dt><dd>Capital intensity vs payback?</dd>
+      </dl>
+    </div>
+    <div class="case reveal">
+      <div class="tk">Main Street</div>
+      <h4>Special</h4>
+      <div class="ar">AI operating company</div>
+      <dl>
+        <dt>First wedge</dt><dd>Senior care / Figure Health</dd>
+        <dt>Why ownership</dt><dd>SpecialOS, per-company tuning; $10tn Main Street TAM.</dd>
+        <dt>Open question</dt><dd>Scale care without regulatory blowback?</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 6 BOTTOM LINE -->
+<section class="panel" id="p-bottom" data-dot="Bottom line">
+  <div class="glow" style="width:600px;height:600px;background:var(--cyan);top:50%;left:50%;transform:translate(-50%,-50%);opacity:.18;"></div>
+  <div class="eyebrow">Bottom Line</div>
+  <p class="statement" data-statement style="max-width:22ch;">
+    <span class="w">The</span> <span class="w">winner</span> <span class="w">may</span> <span class="w">not</span> <span class="w">be</span> <span class="w">the</span> <span class="w">best</span> <span class="w">consolidator</span> <span class="w">in</span> <span class="w">one</span> <span class="w">vertical —</span>
+    <span class="w accent">but</span> <span class="w accent">the</span> <span class="w accent">best</span> <span class="w accent">AI</span> <span class="w accent">deployment</span> <span class="w accent">operator</span> <span class="w accent">across</span> <span class="w accent">many.</span>
+  </p>
+  <div class="chips" style="margin-top:40px;">
+    <span><b>Conviction:</b> Accounting · MSP · Healthcare RCM · Property</span>
+    <span><b>Harder:</b> Legal · AEC · Insurance · Wealth</span>
+    <span><b>Crowded:</b> CX/BPO</span>
+  </div>
+</section>
+
+<!-- 7 SOURCES -->
+<div class="srcpanel" id="p-sources" data-dot="Sources">
+  <div class="eyebrow">References</div>
+  <h2 style="font-size:clamp(28px,5vw,48px);margin:6px 0 0;">Sources</h2>
+  <div class="sources" id="sourceList"></div>
+</div>
+
+<footer>The AI Roll-Up Playbook · Scrollytelling Edition · Data as reported · Not investment advice</footer>
+
+<script>
+  const funding=[
+    ['Beacon',250,'var(--violet)'],['Eudia',105,'var(--cyan)'],['Shield',100,'var(--cyan)'],
+    ['Dwelly',88,'var(--pink)'],['Accrual',75,'var(--lime)'],['Titan',74,'var(--cyan)'],
+    ['Savvy',72,'var(--amber)'],['Buena',58,'var(--pink)'],['Crescendo',50,'var(--cyan)'],
+    ['Arbio',34,'var(--pink)'],['Multiplier',27.5,'var(--lime)'],['Zero RFI',13.8,'var(--amber)']
+  ];
+  const ranking=[
+    ['Accounting / tax',5.0,'var(--lime)'],['MSP / IT',5.0,'var(--lime)'],
+    ['Healthcare RCM',4.6,'var(--cyan)'],['Property mgmt',4.2,'var(--cyan)'],
+    ['Construction',3.7,'var(--amber)'],['Legal',3.7,'var(--amber)'],
+    ['CX / BPO',3.4,'var(--amber)'],['Insurance',3.0,'var(--pink)'],
+    ['Wealth',3.0,'var(--pink)'],['Home / field',2.8,'var(--pink)'],['Auto repair',2.3,'var(--pink)']
+  ];
+  // [name, attractiveness, difficulty, color]
+  const verts=[
+    ['Accounting',5.0,2.0,'var(--lime)'],['MSP',5.0,2.2,'var(--lime)'],['Healthcare',4.6,3.6,'var(--cyan)'],
+    ['Property',4.2,3.0,'var(--cyan)'],['Construction',3.7,4.2,'var(--amber)'],['Legal',3.7,3.9,'var(--amber)'],
+    ['CX/BPO',3.4,3.2,'var(--amber)'],['Insurance',3.0,3.3,'var(--pink)'],['Wealth',3.0,3.2,'var(--pink)'],
+    ['Home/field',2.8,3.0,'var(--pink)'],['Auto',2.3,2.8,'var(--pink)']
+  ];
+  const sources=[
+"General Catalyst — The Future of Services: https://www.generalcatalyst.com/stories/the-future-of-services",
+"General Catalyst — Europe’s AI Transformation: https://www.generalcatalyst.com/stories/europes-ai-transformation-in-services",
+"Zero RFI launch: https://www.globenewswire.com/news-release/2026/03/16/3256324/0/en/",
+"Accrual launch: https://accrual.com/launch",
+"Crete Professionals Alliance: https://www.cretepa.com/news/building-the-firm-of-the-future",
+"Reuters/CNA on Crete: https://www.channelnewsasia.com/business/thrive-backed-crete-5166016",
+"TechCrunch on Multiplier: https://techcrunch.com/2025/06/18/multiplier-nabs-27-5m/",
+"Integral funding: https://www.integral.de/en/post/funding-announcement",
+"Integral acquires cleverlohn: https://www.integral.de/en/post/integral-acquires-cleverlohn",
+"Taxforce: https://www.taxforce.ai/blog/taxforce-raises-5m",
+"Titan MSP launch: https://www.prnewswire.com/news-releases/titan-raises-74m-302527468.html",
+"Shield Technology Partners: https://www.finsmes.com/2026/02/shield-technology-partners-100m.html",
+"Crescendo / PartnerHero: https://www.crescendo.ai/news/crescendo-acquires-partnerhero",
+"Crescendo financing: https://www.crescendo.ai/news/crescendo-closes-50-million",
+"Eudia funding: https://www.prnewswire.com/news-releases/eudia-secures-up-to-105m-302375331.html",
+"Eudia acquires Johnson Hana: https://www.eudia.com/blog/eudia-acquires-johnson-hana",
+"Dwelly funding: https://sifted.eu/articles/dwelly-general-catalyst-funding-round",
+"Trinity Capital / Dwelly: https://trinitycap.com/news/trinity-capital-growth-capital-to-dwelly/",
+"Buena funding: https://www.buena.com/en/blog/press-release",
+"Buena site: https://www.buena.com/",
+"Arbio Series A: https://www.eu-startups.com/2025/03/berlin-based-arbio-secures-e31-million/",
+"hallo theo: https://www.eu-startups.com/2024/07/berlin-based-hallo-theo-e10-million/",
+"Beacon Software Series B: https://venturebeat.com/business/beacon-software-raises-250-million-series-b",
+"Reuters on Beacon: https://www.channelnewsasia.com/business/beacon-software-250-million-5444526",
+"Long Lake / Amex GBT: https://www.amexglobalbusinesstravel.com/press-releases/long-lake-acquire-amex-gbt/",
+"Amex GBT investor note: https://investors.amexglobalbusinesstravel.com/investors/news/2026/",
+"E3 Tech / Sylvan: https://www.constructiondive.com/news/sylvan-egan-mep-contractor-acquisition/738896/",
+"Vivere Partners: https://www.businesswire.com/news/home/20250506996503/en/",
+"Savvy Wealth Series B: https://www.businesswire.com/news/home/20250702795194/en/",
+"Savvy Wealth platform: https://www.savvywealth.com/series-b-page",
+"Forerunner on Stress-Free Auto: https://www.forerunnerventures.com/perspectives/stress-free-auto",
+"Kirkland on Thrive Holdings: https://www.kirkland.com/news/press-release/2025/05/thrive-holdings",
+"Thrive × OpenAI: https://www.thriveholdings.com/oai_announcement",
+"OpenAI on Thrive Holdings: https://openai.com/index/thrive-holdings/",
+"Forbes on Thrive accounting: https://www.forbes.com/sites/annatong/2026/06/02/thrive-holdings-ai-accounting/",
+"Shield Technology launch: https://www.businesswire.com/news/home/20250605512954/en/",
+"TechCrunch on Project Prometheus: https://techcrunch.com/2025/11/17/jeff-bezos-project-prometheus/",
+"TechCrunch on Bezos industrial fund: https://techcrunch.com/2026/03/19/jeff-bezos-100-billion-manufacturing-ai/",
+"WIRED on General Agents: https://www.wired.com/story/jeff-bezos-acquired-agentic-computing-startup/",
+"Special site: https://www.special.co/",
+"Special vision: https://www.special.co/vision",
+"Figure Health: https://www.figurehealth.com/",
+"Healthcare Dive — Smarter Technologies: https://www.healthcaredive.com/news/new-mountain-smarter-technologies/748748/",
+"Becker’s — RCM combine: https://www.beckershospitalreview.com/finance/3-rcm-companies-combine/",
+"Fierce Healthcare — Innovaccer/CaduceusHealth: https://www.fiercehealthcare.com/health-tech/innovaccer-caduceushealth",
+"Reuters on Commure: https://www.investing.com/news/stock-market-news/commure-valued-at-7-billion-4699112",
+"Wolters Kluwer — accounting fragmentation: https://www.wolterskluwer.com/en/expert-insights/private-equity-tax-accounting",
+"EY — European broker consolidation: https://www.ey.com/en_pt/insights/insurance/broker-consolidation-continental-europe",
+"Risk & Insurance — MGA M&A: https://riskandinsurance.com/mga-deals-surge/",
+"Reuters — ARS sale: https://www.marketscreener.com/news/american-residential-services-sale",
+"Morgan Stanley — Sila Services: https://www.morganstanley.com/press-releases/sell-sila-services"
+  ];
+
+  // ----- build layer 0 (funding bars) -----
+  const maxF=Math.max(...funding.map(f=>f[1]));
+  const l0=document.getElementById('layer-0');
+  funding.forEach(([n,v,c])=>{
+    const r=document.createElement('div'); r.className='vbar on';
+    r.innerHTML=`<div class="vl">${n}</div><div class="vtrack"><div class="vfill" data-w="${(v/maxF*100).toFixed(1)}" style="background:linear-gradient(90deg,${c},#fff2)"></div></div><div class="vv">$${v}M</div>`;
+    l0.appendChild(r);
+  });
+  // ----- build layer 1 (ranking bars) -----
+  const l1=document.getElementById('layer-1');
+  ranking.forEach(([n,v,c])=>{
+    const r=document.createElement('div'); r.className='vbar';
+    r.innerHTML=`<div class="vl">${n}</div><div class="vtrack"><div class="vfill" data-w="${(v/5*100).toFixed(1)}" style="background:linear-gradient(90deg,${c},#fff2)"></div></div><div class="vv">${v.toFixed(1)}/5</div>`;
+    l1.appendChild(r);
+  });
+  // ----- build layer 2 (scatter) -----
+  (function(){
+    const svg=document.getElementById('scatter');
+    const W=640,H=420,pad=46;
+    const xN=v=>pad+(v/5)*(W-pad*1.5);
+    const yN=v=>H-pad-(v/5)*(H-pad*1.7);
+    let g='';
+    for(let i=0;i<=5;i++){
+      g+=`<line class="scGrid" x1="${xN(i)}" y1="${pad*0.5}" x2="${xN(i)}" y2="${H-pad}"/>`;
+      g+=`<line class="scGrid" x1="${pad}" y1="${yN(i)}" x2="${W-pad*0.5}" y2="${yN(i)}"/>`;
+      g+=`<text x="${xN(i)}" y="${H-pad+18}" text-anchor="middle">${i}</text>`;
+      g+=`<text x="${pad-12}" y="${yN(i)+4}" text-anchor="end">${i}</text>`;
+    }
+    g+=`<line class="scAxis" x1="${pad}" y1="${H-pad}" x2="${W-pad*0.5}" y2="${H-pad}"/>`;
+    g+=`<line class="scAxis" x1="${pad}" y1="${pad*0.5}" x2="${pad}" y2="${H-pad}"/>`;
+    g+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" style="fill:var(--muted)">difficulty →</text>`;
+    g+=`<text x="14" y="${H/2}" text-anchor="middle" transform="rotate(-90 14 ${H/2})" style="fill:var(--muted)">attractiveness ↑</text>`;
+    verts.forEach(([n,a,d,c])=>{
+      g+=`<circle class="scDot" cx="${xN(d)}" cy="${yN(a)}" r="7" style="fill:${c};opacity:.9"/>`;
+      g+=`<text class="scLbl" x="${xN(d)+10}" y="${yN(a)+4}">${n}</text>`;
+    });
+    svg.innerHTML=g;
+  })();
+
+  // ----- scrollytelling step control -----
+  const layers=[document.getElementById('layer-0'),document.getElementById('layer-1'),document.getElementById('layer-2')];
+  const titles=[['Capital Flows','Disclosed platform raises · USD millions'],
+                ['Vertical Rankings','Attractiveness score · 0 to 5'],
+                ['Risk Map','Attractiveness vs execution difficulty']];
+  const vizTitle=document.getElementById('vizTitle'), vizSub=document.getElementById('vizSub');
+  function setStep(n){
+    layers.forEach((l,i)=>l.classList.toggle('active',i===n));
+    vizTitle.textContent=titles[n][0]; vizSub.textContent=titles[n][1];
+    // animate fills of active bar layer
+    layers[n].querySelectorAll('.vfill').forEach(b=>{ b.style.width='0'; requestAnimationFrame(()=>b.style.width=b.dataset.w+'%'); });
+    if(n===1) layers[1].querySelectorAll('.vbar').forEach((v,i)=>setTimeout(()=>v.classList.add('on'),i*40));
+  }
+  const stepObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting) setStep(+e.target.dataset.step); });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('.step').forEach(s=>stepObs.observe(s));
+  // init bar widths once
+  window.addEventListener('load',()=>{ layers[0].querySelectorAll('.vfill').forEach(b=>b.style.width=b.dataset.w+'%'); });
+
+  // ----- statement word reveal -----
+  const stObs=new IntersectionObserver(es=>{
+    es.forEach(e=>e.target.classList.toggle('lit',e.isIntersecting));
+  },{threshold:.5});
+  document.querySelectorAll('[data-statement]').forEach(s=>stObs.observe(s));
+
+  // ----- generic reveal -----
+  const rev=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in');
+      e.target.querySelectorAll&&e.target.querySelectorAll('.vfill').forEach(b=>b.style.width=b.dataset.w+'%'); } });
+  },{threshold:.18});
+  document.querySelectorAll('.reveal').forEach(el=>rev.observe(el));
+
+  // ----- progress bar -----
+  const prog=document.getElementById('progress');
+  addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-innerHeight;
+    prog.style.width=(scrollY/h*100)+'%';
+  },{passive:true});
+
+  // ----- dots nav -----
+  const panels=[...document.querySelectorAll('[data-dot]')];
+  const dots=document.getElementById('dots');
+  panels.forEach(p=>{
+    const a=document.createElement('a'); a.href='#'+p.id; a.title=p.dataset.dot; dots.appendChild(a);
+  });
+  const dotEls=[...dots.children];
+  const dObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      const i=panels.indexOf(e.target);
+      dotEls.forEach((d,j)=>d.classList.toggle('active',j===i));
+    }});
+  },{threshold:.5});
+  panels.forEach(p=>dObs.observe(p));
+
+  // sources
+  const sl=document.getElementById('sourceList');
+  sources.forEach((s,i)=>{
+    const m=s.match(/(https?:\/\/\S+)/); const url=m?m[1]:'';
+    const text=url?s.replace(url,'').replace(/:\s*$/,''):s;
+    const d=document.createElement('div'); d.id='ref-'+(i+1);
+    d.innerHTML=`<span class="n">[${i+1}]</span> ${text}${url?` <a href="${url}" target="_blank" rel="noopener">↗</a>`:''}`;
+    sl.appendChild(d);
+  });
+</script>
+</body>
+</html>

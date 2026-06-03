@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI Roll-Up Playbook — Editorial Edition</title>
+<style>
+  :root{
+    --ink:#16130d;
+    --paper:#f7f3ea;
+    --paper-2:#efe9da;
+    --rule:#d8cfb8;
+    --rule-strong:#b9ad8e;
+    --accent:#8a2b1f;     /* oxblood */
+    --accent-2:#0b3d2e;   /* deep green */
+    --muted:#6b6450;
+    --gold:#9a7b2e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.6; font-size:18px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* Masthead */
+  .masthead{border-bottom:3px double var(--ink); padding:14px 0 10px; margin-top:10px;}
+  .masthead .top{display:flex; justify-content:space-between; align-items:baseline; font-family:ui-sans-serif,system-ui,sans-serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+  .masthead h1{
+    font-size:clamp(34px,6.5vw,76px); text-align:center; line-height:1; margin:14px 0 8px;
+    letter-spacing:-.01em; font-weight:700;
+  }
+  .masthead .sub{text-align:center; font-style:italic; color:var(--muted); font-size:clamp(15px,2.2vw,21px); margin-bottom:12px;}
+  .masthead .rule-row{display:flex; justify-content:center; gap:18px; align-items:center; border-top:1px solid var(--rule-strong); border-bottom:1px solid var(--rule-strong); padding:7px 0; font-family:ui-sans-serif,system-ui,sans-serif; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);}
+  .masthead .rule-row b{color:var(--ink);}
+
+  /* Nav */
+  nav.toc{position:sticky; top:0; z-index:30; background:var(--paper); border-bottom:1px solid var(--rule-strong); }
+  nav.toc .inner{display:flex; gap:4px; overflow-x:auto; font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:9px 0; scrollbar-width:none;}
+  nav.toc .inner::-webkit-scrollbar{display:none;}
+  nav.toc a{color:var(--muted); white-space:nowrap; padding:5px 12px; border-radius:2px;}
+  nav.toc a:hover{color:var(--ink); text-decoration:none; background:var(--paper-2);}
+  nav.toc a.active{color:var(--accent); border-bottom:2px solid var(--accent);}
+
+  /* Lede / dropcap */
+  section{padding:46px 0; border-bottom:1px solid var(--rule);}
+  .kicker{font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;}
+  h2.head{font-size:clamp(26px,4vw,40px); line-height:1.08; margin:0 0 6px; letter-spacing:-.01em;}
+  h3{font-size:23px; margin:30px 0 8px;}
+  .standfirst{font-size:21px; font-style:italic; color:var(--muted); max-width:62ch; margin:6px 0 22px;}
+  .cols{column-count:2; column-gap:38px;}
+  .cols p{margin:0 0 16px;}
+  @media(max-width:760px){.cols{column-count:1;}}
+  .dropcap:first-letter{
+    font-size:64px; line-height:.78; float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700;
+  }
+  p{margin:0 0 16px;}
+  ul.bullets{margin:0 0 18px; padding-left:1.1em;}
+  ul.bullets li{margin-bottom:7px;}
+
+  /* Pull quote */
+  .pull{border-left:none; text-align:center; padding:26px 0; margin:8px 0;}
+  .pull blockquote{font-size:clamp(22px,3.2vw,30px); line-height:1.25; font-style:italic; margin:0 auto; max-width:24ch;}
+  .pull blockquote::before{content:"“"; color:var(--accent);}
+  .pull blockquote::after{content:"”"; color:var(--accent);}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto; margin:18px 0; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);}
+  table{width:100%; border-collapse:collapse; font-size:15px; font-family:ui-sans-serif,system-ui,sans-serif; min-width:640px;}
+  thead th{text-align:left; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); padding:11px 12px; border-bottom:1px solid var(--rule-strong); vertical-align:bottom;}
+  tbody td{padding:11px 12px; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.4;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--paper-2);}
+  td b, th b{color:var(--ink);}
+  .tag{display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; letter-spacing:.04em;}
+  .t-vh{background:#e7d3cf; color:var(--accent);}
+  .t-h{background:#d9e3d6; color:var(--accent-2);}
+  .t-m{background:#ece2c8; color:var(--gold);}
+
+  /* Chart blocks */
+  .figure{margin:26px 0; }
+  .figure .cap{font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; letter-spacing:.04em; color:var(--muted); margin-top:10px;}
+  .figure .cap b{color:var(--ink); text-transform:uppercase; letter-spacing:.12em; font-size:11px;}
+  .bar-row{display:grid; grid-template-columns:170px 1fr 64px; align-items:center; gap:12px; padding:5px 0; font-family:ui-sans-serif,system-ui,sans-serif; font-size:13px;}
+  .bar-row .lbl{text-align:right; color:var(--ink);}
+  .bar-track{height:16px; background:var(--paper-2); position:relative; border:1px solid var(--rule);}
+  .bar-fill{height:100%; background:linear-gradient(90deg,var(--accent),#b8442f); width:0; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+  .bar-fill.g{background:linear-gradient(90deg,var(--accent-2),#1f6f53);}
+  .bar-row .val{font-variant-numeric:tabular-nums; color:var(--muted);}
+
+  /* Attractiveness matrix */
+  .matrix{display:grid; grid-template-columns:1fr; gap:0; font-family:ui-sans-serif,system-ui,sans-serif;}
+  .mrow{display:grid; grid-template-columns:200px 1fr; align-items:center; gap:14px; padding:8px 0; border-bottom:1px solid var(--rule);}
+  .mrow .name{font-size:14px;}
+  .dots{display:flex; gap:6px; align-items:center;}
+  .dot{width:13px; height:13px; border-radius:50%; background:var(--paper-2); border:1px solid var(--rule-strong);}
+  .dot.on{background:var(--accent); border-color:var(--accent);}
+  .mrow .score{font-size:12px; color:var(--muted); margin-left:8px;}
+  @media(max-width:600px){.mrow{grid-template-columns:130px 1fr;}}
+
+  /* Case study cards */
+  .cases{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);}
+  .case{padding:22px 20px; border-right:1px solid var(--rule);}
+  .case:last-child{border-right:none;}
+  .case .n{font-family:ui-sans-serif,system-ui,sans-serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent);}
+  .case h4{font-size:24px; margin:6px 0 4px;}
+  .case .arch{font-style:italic; color:var(--muted); font-size:15px; margin-bottom:12px;}
+  .case dl{margin:0; font-family:ui-sans-serif,system-ui,sans-serif; font-size:13px;}
+  .case dt{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:10px;}
+  .case dd{margin:2px 0 0;}
+  @media(max-width:760px){.cases{grid-template-columns:1fr;} .case{border-right:none; border-bottom:1px solid var(--rule);}}
+
+  /* Sources */
+  .sources{columns:2; column-gap:34px; font-family:ui-sans-serif,system-ui,sans-serif; font-size:12.5px; color:var(--muted);}
+  .sources .src{break-inside:avoid; margin-bottom:9px; padding-left:30px; text-indent:-30px;}
+  .sources .src .num{display:inline-block; width:24px; color:var(--accent); font-weight:700;}
+  @media(max-width:600px){.sources{columns:1;}}
+
+  footer.foot{text-align:center; padding:40px 0; font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  .backlink{position:fixed; left:16px; bottom:16px; z-index:40; font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; background:var(--ink); color:var(--paper); padding:8px 13px; border-radius:999px; letter-spacing:.06em;}
+  .backlink:hover{text-decoration:none; background:var(--accent);}
+</style>
+</head>
+<body>
+
+<a class="backlink" href="../index.html">← all designs</a>
+
+<div class="wrap">
+  <div class="masthead">
+    <div class="top">
+      <span>Vol. MMXXVI · No. 1</span>
+      <span>A Field Report</span>
+      <span>Updated 2 June 2026</span>
+    </div>
+    <h1>The AI Roll-Up Playbook</h1>
+    <div class="sub">Market Map, Vertical Prioritization &amp; the Europe Opportunity</div>
+    <div class="rule-row">
+      <span><b>$4tn</b> European services pool</span>
+      <span>·</span>
+      <span><b>46,000+</b> US accounting firms</span>
+      <span>·</span>
+      <span><b>11</b> verticals ranked</span>
+    </div>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="wrap"><div class="inner">
+    <a href="#summary">Summary</a>
+    <a href="#model">The Model</a>
+    <a href="#map">Market Map</a>
+    <a href="#priority">Prioritization</a>
+    <a href="#bestfit">Best-Fit Verticals</a>
+    <a href="#europe">Europe</a>
+    <a href="#holdco">Holding Co.</a>
+    <a href="#cases">Case Studies</a>
+    <a href="#screen">Screen</a>
+    <a href="#bottom">Bottom Line</a>
+    <a href="#sources">Sources</a>
+  </div></div>
+</nav>
+
+<main class="wrap">
+
+  <!-- SUMMARY -->
+  <section id="summary" class="reveal">
+    <div class="kicker">Executive Summary</div>
+    <h2 class="head">Buy the trusted local provider. Centralize the operating system. Let AI do the rest.</h2>
+    <p class="standfirst">AI-enabled roll-ups are emerging as a distinct company-creation model — neither vertical SaaS nor a private-equity buy-and-build with a thin technology veneer.</p>
+    <div class="cols">
+      <p class="dropcap">The strongest versions acquire or partner with legacy service businesses, take direct control of workflows, customers, data, and labor capacity, and then use AI plus centralized operations to expand throughput, improve margins, raise service quality, and create new revenue products.</p>
+      <p>The operating pattern is simple: buy the local trusted service provider, centralize the operating system, use AI to increase throughput, quality, and margin — then acquire more.</p>
+      <p>The most investable pattern is not “buy fragmented industry, add AI.” The better screen requires recurring or highly repeatable demand; measurable work queues; document-, message-, voice-, or ticket-heavy workflows; acute labor shortages; a fragmented owner base with succession pressure; and trust or regulation that makes direct ownership more effective than selling software from outside.</p>
+      <p>The highest-conviction verticals are accounting/tax/payroll, managed IT services, healthcare revenue-cycle and practice administration, and property management. Legal, construction/AEC, insurance services, and wealth/advisory are compelling but demand tighter regulatory and execution discipline. CX/BPO has the fastest automation path but the most intense competition from horizontal AI vendors.</p>
+    </div>
+    <div class="pull"><blockquote>The most investable AI roll-up is an operating company that acquires the right to redesign work.</blockquote></div>
+  </section>
+
+  <!-- MODEL -->
+  <section id="model" class="reveal">
+    <div class="kicker">Working Definition</div>
+    <h2 class="head">What makes the model different</h2>
+    <p class="standfirst">An AI-enabled roll-up controls legacy service businesses, then uses AI-native software, centralized operations, and shared data to transform the underlying delivery model.</p>
+    <p>General Catalyst’s “Transformations” strategy is the clearest public framing: backing founders who acquire, rebuild, and operate legacy service businesses with AI as the primary transformation lever. Its associated company set includes Accrual, Beacon Software, Crescendo, Dwelly, Eudia, Integral, Long Lake, Titan MSP, and Zero RFI. <a href="#sources">[1][2][3]</a></p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Model</th><th>Primary asset</th><th>How value is created</th><th>Main limitation</th></tr></thead>
+        <tbody>
+          <tr><td><b>Traditional vertical SaaS</b></td><td>Software product</td><td>Sell tools into incumbent workflows</td><td>Adoption is slow when customers lack process maturity or incentive to change</td></tr>
+          <tr><td><b>Traditional PE roll-up</b></td><td>Acquired EBITDA</td><td>Centralize finance, procurement, pricing, management</td><td>Limited organic transformation unless technology changes the work itself</td></tr>
+          <tr><td><b>AI-enabled roll-up</b></td><td>Controlled workflows, customers, data &amp; labor capacity</td><td>Rebuild delivery with AI agents, expert review, centralized ops, outcome pricing</td><td>Hard integration, regulatory risk, operational execution burden</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The model works best where selling software alone is insufficient: distribution is hard, the buyer is too small or process-constrained to transform itself, and the customer buys an outcome rather than software. Direct ownership gives the platform the right to redesign the work.</p>
+  </section>
+
+  <!-- MARKET MAP -->
+  <section id="map" class="reveal">
+    <div class="kicker">Market Map</div>
+    <h2 class="head">Where the capital is going</h2>
+    <p class="standfirst">Disclosed platform raises across the cohort, in approximate US-dollar millions.</p>
+
+    <div class="figure">
+      <div id="fundingChart"></div>
+      <div class="cap"><b>Figure 1</b> &nbsp; Disclosed platform financing (seed / venture rounds &amp; dedicated funds). Long Lake’s $6.3bn Amex GBT acquisition is excluded as an outlier. Currency converted at approximate rates.</div>
+    </div>
+
+    <h3>Core roll-ups &amp; vertical comps</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Vertical</th><th>Company</th><th>Geo</th><th>Capital / backers</th><th>AI lever</th></tr></thead>
+        <tbody>
+          <tr><td>Accounting, tax</td><td><b>Accrual</b></td><td>US</td><td>GC-led, $75m; refs incl. H&amp;R Block, Armanino, Creative Planning</td><td>Extracts data, drafts workpapers, flags inconsistencies, compresses review <a href="#sources">[4]</a></td></tr>
+          <tr><td>Accounting, tax</td><td><b>Crete Professionals Alliance</b></td><td>US</td><td>Thrive, Bessemer, ZBS; 30+ firms, $300m+ revenue</td><td>Data mapping &amp; memo writing; hundreds of hours saved/mo <a href="#sources">[5][6]</a></td></tr>
+          <tr><td>Accounting, tax</td><td><b>Multiplier Holdings</b></td><td>US</td><td>Lightspeed-led; $27.5m seed + Series A</td><td>Workflow AI reportedly &gt;2× Citrine margins <a href="#sources">[7]</a></td></tr>
+          <tr><td>Acct / payroll</td><td><b>Integral</b></td><td>DE / EU</td><td>General Catalyst &amp; Cherry Ventures</td><td>German SME accounting, tax, payroll, admin <a href="#sources">[8][9]</a></td></tr>
+          <tr><td>Tax advisory</td><td><b>Taxforce</b></td><td>DE</td><td>Tenet’s first deal; €5m</td><td>Verticalized tax workflows for doctors/practices <a href="#sources">[10]</a></td></tr>
+          <tr><td>MSP / IT</td><td><b>Titan MSP</b></td><td>US</td><td>GC-led $74m; acquired RFA</td><td>Agents for ticket triage, troubleshooting, failure prediction <a href="#sources">[11]</a></td></tr>
+          <tr><td>MSP / IT</td><td><b>Shield Technology Partners</b></td><td>US</td><td>Thrive; $100m; 9 companies, $100m+ revenue</td><td>Sentinel triages tickets; Spectre orchestrates agent fleets <a href="#sources">[12]</a></td></tr>
+          <tr><td>Healthcare RCM</td><td><b>Smarter Technologies</b></td><td>US</td><td>New Mountain combo: Access Healthcare, SmarterDx, Thoughtful.ai</td><td>Coding, claims, eligibility, prior-auth, denials, recovery <a href="#sources">[43][44]</a></td></tr>
+          <tr><td>Healthcare RCM</td><td><b>Innovaccer / CaduceusHealth</b></td><td>US</td><td>~4,000 providers; ~$5bn annual charges</td><td>Scheduling, engagement, billing, claims, denials <a href="#sources">[45]</a></td></tr>
+          <tr><td>CX / BPO</td><td><b>Crescendo</b></td><td>Global</td><td>GC-led $50m; ~$500m valuation; acquired PartnerHero</td><td>Hybrid AI+human, outcome pricing, automated QA <a href="#sources">[13][14]</a></td></tr>
+          <tr><td>Legal</td><td><b>Eudia</b></td><td>US / global</td><td>GC-led Series A up to $105m; acquired Johnson Hana</td><td>AI-augmented legal workforce; compliance, contracts, legal ops <a href="#sources">[15][16]</a></td></tr>
+          <tr><td>Property mgmt</td><td><b>Dwelly</b></td><td>UK</td><td>GC-led; £69m equity/debt; 8 acquisitions</td><td>Onboarding, rent collection, maintenance, compliance <a href="#sources">[17][18]</a></td></tr>
+          <tr><td>Property mgmt</td><td><b>Buena</b></td><td>DE</td><td>GV, 20VC, Stride, Capnamic; $58m; 60,000+ apartments</td><td>Accounting, annual reporting, operations <a href="#sources">[19][20]</a></td></tr>
+          <tr><td>Short-term rental</td><td><b>Arbio</b></td><td>DACH</td><td>Eurazeo-led €31m; ~1,000 units</td><td>Distribution, accounting, guest comms, pricing <a href="#sources">[21]</a></td></tr>
+          <tr><td>Property mgmt</td><td><b>hallo theo</b></td><td>DE</td><td>Insight Partners €10m seed</td><td>Automation for PM data, service quality, response times <a href="#sources">[22]</a></td></tr>
+          <tr><td>Construction / AEC</td><td><b>Zero RFI</b></td><td>US</td><td>GC-led $13.8m seed; Brookwood, BuildingWorks, KP Reddy</td><td>Owner/developer workflows, shared docs, decision intelligence <a href="#sources">[3]</a></td></tr>
+          <tr><td>Insurance / MGA</td><td><b>Vivere Partners</b></td><td>US</td><td>GC, Pathlight, Greenlight Re; $7.5m</td><td>AI &amp; alt-data for specialty underwriting <a href="#sources">[28]</a></td></tr>
+          <tr><td>Wealth / RIA</td><td><b>Savvy Wealth</b></td><td>US</td><td>$72m Series B; ~$100m total</td><td>AI workspace; 19 hrs/wk saved by advisors <a href="#sources">[29][30]</a></td></tr>
+          <tr><td>Auto repair</td><td><b>Stress-Free Auto Care</b></td><td>US</td><td>Forerunner-backed; ~20 shops</td><td>Booking, modernized ops; AI in diagnostics <a href="#sources">[31]</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRIORITIZATION -->
+  <section id="priority" class="reveal">
+    <div class="kicker">Vertical Prioritization</div>
+    <h2 class="head">Ranking the field</h2>
+    <p class="standfirst">Eleven verticals scored on attractiveness — a blend of AI-fit, roll-up logic, and risk.</p>
+
+    <div class="figure">
+      <div class="matrix" id="matrix"></div>
+      <div class="cap"><b>Figure 2</b> &nbsp; Relative attractiveness (5 = very high). Scores synthesize recurring demand, measurability, AI-addressability, labor bottleneck, fragmentation, and regulatory drag.</div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Vertical</th><th>Rating</th><th>Why AI fits</th><th>Main risk</th></tr></thead>
+        <tbody>
+          <tr><td><b>Accounting / tax / payroll</b></td><td><span class="tag t-vh">Very high</span></td><td>Document-heavy, rules-based, deadline-driven</td><td>Liability, review quality, client trust, seasonality</td></tr>
+          <tr><td><b>MSP / IT services</b></td><td><span class="tag t-vh">Very high</span></td><td>Ticket triage, alert analysis, remediation, KB retrieval</td><td>Security, tool-stack integration, customer trust</td></tr>
+          <tr><td><b>Healthcare RCM / admin</b></td><td><span class="tag t-vh">Very high · regulated</span></td><td>Claims, coding, denials, prior-auth, billing, intake</td><td>HIPAA, payer integration, FWA scrutiny</td></tr>
+          <tr><td><b>Property mgmt / lettings</b></td><td><span class="tag t-h">High · esp. EU</span></td><td>High-volume comms, maintenance routing, compliance</td><td>Local regulation, edge cases, tenant/landlord trust</td></tr>
+          <tr><td><b>Legal services</b></td><td><span class="tag t-h">High · constrained</span></td><td>Contract &amp; compliance review, intake, matter routing</td><td>UPL risk, hallucinations, privilege, jurisdiction</td></tr>
+          <tr><td><b>Customer support / BPO</b></td><td><span class="tag t-h">High · low moat</span></td><td>Voice/chat/email automatable &amp; QA’d at scale</td><td>Fierce horizontal AI competition, commoditization</td></tr>
+          <tr><td><b>Construction / AEC</b></td><td><span class="tag t-h">High · hard exec</span></td><td>RFIs, submittals, closeout, owner-rep knowledge</td><td>Field complexity, liability, project variability</td></tr>
+          <tr><td><b>Insurance / MGA / TPA</b></td><td><span class="tag t-m">Medium-high</span></td><td>Submission intake, underwriting &amp; claims support</td><td>Regulation, carrier capacity, loss volatility</td></tr>
+          <tr><td><b>Wealth / advisory</b></td><td><span class="tag t-m">Medium-high</span></td><td>Notes, planning, tax alerts, surveillance</td><td>Regulatory scrutiny, advisor autonomy, trust</td></tr>
+          <tr><td><b>Home / field services</b></td><td><span class="tag t-m">Medium-high · crowded</span></td><td>Call handling, dispatch, quoting, routing</td><td>Physical labor; multiples may price in consolidation</td></tr>
+          <tr><td><b>Auto repair / local trades</b></td><td><span class="tag t-m">Medium</span></td><td>Scheduling, quoting, diagnostics, parts</td><td>Physical ops, labor scarcity, margin ceiling</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BEST FIT -->
+  <section id="bestfit" class="reveal">
+    <div class="kicker">Best-Fit Verticals by Thesis</div>
+    <h2 class="head">Seven theses, in order of conviction</h2>
+
+    <h3>1 · Accounting, Tax &amp; Payroll</h3>
+    <p>The highest-density category — fragmented incumbents, recurring work, document-heavy processes, measurable productivity, compliance-driven demand, and a visible talent shortage. Wolters Kluwer counts more than 46,000 US accounting firms, reinforcing the acquisition supply. <a href="#sources">[47]</a> Accrual, Crete, Multiplier, Integral, and Taxforce all attack variants of the same wedge. The platform must own the workflow, not merely sell software into it. The key underwriting question: can quality and liability controls scale faster than the volume of work?</p>
+
+    <h3>2 · Managed IT Services / MSP</h3>
+    <p>The cleanest recurring-revenue analogue. Titan MSP and Shield show the same pattern — consolidate, centralize AI engineering, apply agents to tickets, alerts, troubleshooting, and remediation. The attraction is measurability: time-to-resolution, backlog, first-contact resolution, utilization, margin, churn. The risk is touching customers’ operational infrastructure; the winning model compresses triage first, then expands into constrained remediation.</p>
+
+    <h3>3 · Healthcare Revenue Cycle &amp; Practice Admin</h3>
+    <p>One of the largest pools of automatable white-collar work. The best targets are not clinical providers but RCM firms, billing companies, coding shops, prior-auth vendors, and patient-access call centers. Commure reportedly completes &gt;85% of RCM work without human intervention across 500+ organizations and 3,000 sites. <a href="#sources">[43][44][45][46]</a> Slower and more politically sensitive than accounting or MSP — the best version is specialty-specific RCM with measurable denials, collections, and recovered revenue.</p>
+
+    <h3>4 · Property Management &amp; Lettings</h3>
+    <p>The most visibly European wedge. Dwelly, Buena, Arbio, and hallo theo point to the same opportunity: local, under-digitized providers with communications-heavy workflows and owners open to succession liquidity. The challenge is operational messiness — repairs, tenants, landlords, local rules, physical assets — which is exactly why ownership matters.</p>
+
+    <h3>5 · Legal Services</h3>
+    <p>High-value workflows, harder to scale operationally. Eudia’s Johnson Hana acquisition adds 300+ legal professionals — relationships, process knowledge, and human-in-the-loop review. The plausible wedge is not replacing lawyers broadly but transforming repeatable legal operations, compliance review, intake, and contract analysis under accuracy, privilege, and licensing constraints.</p>
+
+    <h3>6 · CX / BPO</h3>
+    <p>Fastest automation path, weakest moat unless the platform owns outcomes. Crescendo’s PartnerHero acquisition adds delivery capacity and an outcome-priced hybrid model. Durable advantage depends on vertical specialization, workflow ownership, proprietary service data, and pricing around resolved outcomes rather than seats.</p>
+
+    <h3>7 · Construction / AEC Services</h3>
+    <p>The emerging frontier. Zero RFI moves the model beyond back-office work into capital projects — owner-rep expertise, lifecycle documentation, industry network. RFIs, submittals, closeout packages, and owner reporting are natural AI surfaces; the difficulty is that every project is different, liability is high, and field adoption is slow.</p>
+  </section>
+
+  <!-- EUROPE -->
+  <section id="europe" class="reveal">
+    <div class="kicker">The Europe Opportunity</div>
+    <h2 class="head">Underpriced, and country-by-country</h2>
+    <p class="standfirst">Europe’s fragmented services sectors hold more than $4tn across information, professional, and administrative services — many workflows still text- and voice-heavy. <a href="#sources">[2]</a></p>
+    <div class="cols">
+      <p>The opportunity is less “replace an incumbent SaaS tool” and more “bring software and AI into service sectors that never fully adopted vertical software.” The clearest wedges: property management and lettings (Dwelly, Buena, Arbio, hallo theo); tax, accounting and payroll (Integral, Taxforce); legal delivery; SME administrative services; and hospitality/rental operations.</p>
+      <p>Tenet’s Berlin-based AI roll-up fund is another signal, explicitly targeting European professional-services roll-ups and arguing that lower vertical-SaaS penetration creates an opening for AI-native operators to buy service businesses rather than sell tools to them. <a href="#sources">[10]</a></p>
+      <p>Three features favor the model: high fragmentation at the local provider level; compliance and language complexity that creates defensible operational know-how; and lower historical vertical-SaaS penetration, which makes software-enabled ownership more powerful than incremental procurement.</p>
+      <p>The catch is that cross-border scaling is harder than in the US. Labor law, tax rules, licensing, language, and consumer regulation differ materially by country. The winning European platforms may look more like country-by-country operating systems than one universal pan-European platform.</p>
+    </div>
+  </section>
+
+  <!-- HOLDCO -->
+  <section id="holdco" class="reveal">
+    <div class="kicker">Strategic Extension</div>
+    <h2 class="head">From single vertical to holding company</h2>
+    <p class="standfirst">In the stronger version, a permanent-capital holding company owns multiple operating businesses and applies one shared AI operating system across them.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Single-vertical roll-up</th><th>AI-native holding company</th></tr></thead>
+        <tbody>
+          <tr><td><b>Scope</b></td><td>One category</td><td>Multiple categories, shared primitives</td></tr>
+          <tr><td><b>Capital</b></td><td>Buy-and-build, vertical financing</td><td>Permanent / long-horizon, compounds across industries</td></tr>
+          <tr><td><b>AI asset</b></td><td>Workflow automation in one vertical</td><td>Shared OS, model routing, data pipelines, deployment playbooks</td></tr>
+          <tr><td><b>Data edge</b></td><td>Proprietary vertical data</td><td>Cross-company loops + domain fine-tuning per business</td></tr>
+          <tr><td><b>Main risk</b></td><td>Integration &amp; execution</td><td>Strategic overreach; proving one OS generalizes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Beacon Software and Long Lake show the strategy widening beyond one vertical — Beacon as the broadest horizontal platform <a href="#sources">[23][24]</a>, Long Lake’s $6.3bn Amex GBT deal as the largest visible services-transformation bet. <a href="#sources">[25][26]</a></p>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="reveal">
+    <div class="kicker">Case Studies</div>
+    <h2 class="head">Three archetypes of the endgame</h2>
+    <div class="cases">
+      <div class="case">
+        <div class="n">Services</div>
+        <h4>Thrive Holdings</h4>
+        <div class="arch">Permanent-capital AI operator</div>
+        <dl>
+          <dt>First wedge</dt><dd>Accounting &amp; IT services</dd>
+          <dt>Why ownership</dt><dd>Production feedback loops between domain experts, owned workflows, and frontier AI teams (OpenAI partnership). <a href="#sources">[32][33][34][35][36]</a></dd>
+          <dt>Open question</dt><dd>Can it generalize beyond two high-volume verticals?</dd>
+        </dl>
+      </div>
+      <div class="case">
+        <div class="n">Industrial</div>
+        <h4>Project Prometheus</h4>
+        <div class="arch">Industrial AI holding ambition</div>
+        <dl>
+          <dt>First wedge</dt><dd>Engineering &amp; manufacturing</dd>
+          <dt>Why ownership</dt><dd>Bezos/Bajaj venture, ~$6.2bn; reported $100bn plan to buy &amp; modernize manufacturers; acquired General Agents. <a href="#sources">[37][38][39]</a></dd>
+          <dt>Open question</dt><dd>Can AI lift industrial economics enough to justify the capital intensity?</dd>
+        </dl>
+      </div>
+      <div class="case">
+        <div class="n">Main Street</div>
+        <h4>Special</h4>
+        <div class="arch">AI operating company for critical services</div>
+        <dl>
+          <dt>First wedge</dt><dd>Senior care / Figure Health</dd>
+          <dt>Why ownership</dt><dd>SpecialOS, company-specific fine-tuning, frontier routing; targeting the $10tn Main Street economy; first deal in TX, 1,400+ patients. <a href="#sources">[40][41][42]</a></dd>
+          <dt>Open question</dt><dd>Can it scale healthcare ops without regulatory or quality blowback?</dd>
+        </dl>
+      </div>
+    </div>
+    <p style="margin-top:22px;">Together these strengthen the core thesis: in many real-world sectors, the AI opportunity may accrue to the company that owns the workflow, not the one that sells the tool. The most valuable asset is the closed loop between data, domain experts, AI systems, operating process, and economic incentives.</p>
+  </section>
+
+  <!-- SCREEN -->
+  <section id="screen" class="reveal">
+    <div class="kicker">Investment Screen</div>
+    <h2 class="head">Ten questions before underwriting</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Question</th><th>What good looks like</th></tr></thead>
+        <tbody>
+          <tr><td><b>Is demand recurring?</b></td><td>Monthly retainers, annual compliance cycles, repeat tickets, sticky books</td></tr>
+          <tr><td><b>Is the work measurable?</b></td><td>Cycle time, backlog, error rate, utilization, margin, NPS, churn, first-pass resolution</td></tr>
+          <tr><td><b>Is the workflow AI-addressable?</b></td><td>Heavy documents, messages, forms, tickets, voice, images, decision trees</td></tr>
+          <tr><td><b>Is labor a bottleneck?</b></td><td>Scarce experts, aging owners, high review burden, seasonal capacity</td></tr>
+          <tr><td><b>Is the seller base fragmented?</b></td><td>Many subscale firms, succession pressure, limited internal tech</td></tr>
+          <tr><td><b>Does ownership beat SaaS?</b></td><td>The customer is too small or process-immature to transform itself</td></tr>
+          <tr><td><b>Can output quality be checked?</b></td><td>Human review, rules, benchmarks, audit trails, payer/customer outcomes</td></tr>
+          <tr><td><b>Does AI improve throughput?</b></td><td>Raises revenue per human &amp; managerial span, not just SG&amp;A efficiency</td></tr>
+          <tr><td><b>Can risk be bounded?</b></td><td>Human-in-the-loop, audit trails, insurance, clear escalation paths</td></tr>
+          <tr><td><b>Is there a shared OS?</b></td><td>Common intake, data model, workflow, pricing, staffing, reporting</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BOTTOM LINE -->
+  <section id="bottom" class="reveal">
+    <div class="kicker">Bottom Line</div>
+    <h2 class="head">Conviction, ranked</h2>
+    <div class="cols">
+      <p><b>Near-term highest conviction.</b> Accounting/tax/payroll (strongest density of proof points); MSP/IT services (cleanest recurring-revenue loop); healthcare RCM/admin (largest admin-cost pool, heavier regulation); property management/lettings (strongest Europe-first category).</p>
+      <p><b>Holding-company archetypes to watch.</b> Thrive Holdings (services), Project Prometheus (industrial), Special (critical Main Street services).</p>
+      <p><b>High-upside but harder.</b> Legal services, construction/AEC, insurance services, wealth/advisory, home and field services.</p>
+      <p><b>Crowded but automatable.</b> CX/BPO. <b>Useful precedent, less AI-native:</b> auto repair and local roll-ups; vertical software holdcos such as Beacon.</p>
+      <p>The practical underwriting question: does this holding company have a repeatable AI deployment advantage — or is it merely a capital allocator buying old-economy businesses at a higher multiple because AI is in the story?</p>
+    </div>
+    <div class="pull"><blockquote>The winner may not be the best consolidator in one vertical, but the best AI deployment operator across many.</blockquote></div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources" class="reveal">
+    <div class="kicker">References</div>
+    <h2 class="head">Sources</h2>
+    <div class="sources" id="sourceList"></div>
+  </section>
+
+</main>
+
+<footer class="foot">The AI Roll-Up Playbook · Editorial Edition · Set in Iowan Old Style</footer>
+
+<script>
+  // ---------- data ----------
+  const funding = [
+    ['Beacon Software',250,'g'],['Eudia',105,''],['Shield Technology',100,''],
+    ['Dwelly (≈£69m)',88,''],['Accrual',75,''],['Titan MSP',74,''],
+    ['Savvy Wealth',72,''],['Buena',58,''],['Crescendo',50,''],
+    ['Arbio (≈€31m)',34,''],['Multiplier',27.5,''],['Zero RFI',13.8,''],
+    ['hallo theo (≈€10m)',11,''],['Vivere',7.5,''],['Taxforce (≈€5m)',5.4,'']
+  ];
+  const matrix = [
+    ['Accounting / tax / payroll',5.0],['MSP / IT services',5.0],
+    ['Healthcare RCM / admin',4.6],['Property mgmt / lettings',4.2],
+    ['Construction / AEC',3.7],['Legal services',3.7],
+    ['CX / BPO',3.4],['Insurance / MGA',3.0],
+    ['Wealth / advisory',3.0],['Home / field services',2.8],
+    ['Auto repair / trades',2.3]
+  ];
+  const sources = [
+"General Catalyst, “The Future of Services”: https://www.generalcatalyst.com/stories/the-future-of-services",
+"General Catalyst, “Europe’s AI Transformation in Services”: https://www.generalcatalyst.com/stories/europes-ai-transformation-in-services",
+"Zero RFI launch: https://www.globenewswire.com/news-release/2026/03/16/3256324/0/en/Tech-Veteran-KP-Reddy-Launches-AI-Platform-Company-to-Transform-Construction-Industry.html",
+"Accrual launch: https://accrual.com/launch",
+"Crete Professionals Alliance: https://www.cretepa.com/news/building-the-firm-of-the-future",
+"Reuters syndication on Crete: https://www.channelnewsasia.com/business/thrive-backed-accounting-firm-crete-spend-500-million-ai-roll-up-5166016",
+"TechCrunch on Multiplier &amp; Citrine: https://techcrunch.com/2025/06/18/multiplier-founded-by-ex-stripe-exec-nabs-27-5m/",
+"Integral funding: https://www.integral.de/en/post/funding-announcement",
+"Integral acquires cleverlohn: https://www.integral.de/en/post/integral-acquires-leading-digital-payroll-provider-cleverlohn",
+"Taxforce: https://www.taxforce.ai/blog/taxforce-raises-5m-ai-native-tax-advisory-medical-space",
+"Titan MSP launch: https://www.prnewswire.com/news-releases/titan-raises-74m-led-by-general-catalyst-302527468.html",
+"Shield Technology Partners: https://www.finsmes.com/2026/02/shield-technology-partners-receives-100m-from-thrive-holdings.html",
+"Crescendo / PartnerHero: https://www.crescendo.ai/news/crescendo-acquires-customer-operations-innovator-partnerhero",
+"Crescendo financing: https://www.crescendo.ai/news/crescendo-closes-50-million-in-total-financing",
+"Eudia funding: https://www.prnewswire.com/news-releases/eudia-secures-up-to-105m-in-series-a-funding-302375331.html",
+"Eudia acquires Johnson Hana: https://www.eudia.com/blog/eudia-acquires-johnson-hana",
+"Dwelly funding: https://sifted.eu/articles/dwelly-general-catalyst-funding-round-rollup-property",
+"Trinity Capital / Dwelly: https://trinitycap.com/news/trinity-capital-inc-provides-50-million-growth-capital-to-dwelly/",
+"Buena funding: https://www.buena.com/en/blog/press-release",
+"Buena site: https://www.buena.com/",
+"Arbio Series A: https://www.eu-startups.com/2025/03/berlin-based-arbio-secures-e31-million/",
+"hallo theo: https://www.eu-startups.com/2024/07/berlin-based-hallo-theo-secures-e10-million/",
+"Beacon Software Series B: https://venturebeat.com/business/beacon-software-raises-250-million-series-b",
+"Reuters on Beacon: https://www.channelnewsasia.com/business/beacon-software-raises-250-million-fund-5444526",
+"Long Lake / Amex GBT: https://www.amexglobalbusinesstravel.com/press-releases/long-lake-agrees-to-acquire-amex-gbt/",
+"Amex GBT investor note: https://investors.amexglobalbusinesstravel.com/investors/news/news-details/2026/Long-Lake-Agrees-to-Acquire-Amex-GBT/",
+"E3 Tech / Sylvan: https://www.constructiondive.com/news/sylvan-egan-mep-contractor-acquisition/738896/",
+"Vivere Partners: https://www.businesswire.com/news/home/20250506996503/en/Vivere-Partners-Launches-with-7.5M",
+"Savvy Wealth Series B: https://www.businesswire.com/news/home/20250702795194/en/Savvy-Wealth-Raises-72-Million",
+"Savvy Wealth platform: https://www.savvywealth.com/series-b-page",
+"Forerunner on Stress-Free Auto: https://www.forerunnerventures.com/perspectives/our-investment-in-stress-free-auto",
+"Kirkland on Thrive Holdings: https://www.kirkland.com/news/press-release/2025/05/kirkland-advises-thrive-capital-on-formation-of-thrive-holdings",
+"Thrive × OpenAI: https://www.thriveholdings.com/oai_announcement",
+"OpenAI on Thrive Holdings: https://openai.com/index/thrive-holdings/",
+"Forbes on Thrive accounting roll-up: https://www.forbes.com/sites/annatong/2026/06/02/thrive-holdings-to-bet-1-billion-on-ai-powered-accounting-roll-up/",
+"Shield Technology launch: https://www.businesswire.com/news/home/20250605512954/en/Thrive-Holdings-ZBS-Partners-Launch-Shield-Technology-Partners",
+"TechCrunch on Project Prometheus: https://techcrunch.com/2025/11/17/jeff-bezos-co-ceo-of-new-ai-startup-project-prometheus/",
+"TechCrunch on Bezos industrial fund: https://techcrunch.com/2026/03/19/jeff-bezos-reportedly-wants-100-billion-to-buy-and-transform-manufacturing-firms/",
+"WIRED on General Agents: https://www.wired.com/story/jeff-bezos-new-ai-company-acquired-agentic-computing-startup/",
+"Special site: https://www.special.co/",
+"Special vision: https://www.special.co/vision",
+"Figure Health: https://www.figurehealth.com/",
+"Healthcare Dive on Smarter Technologies: https://www.healthcaredive.com/news/new-mountain-capital-creates-ai-rcm-company-smarter-technologies/748748/",
+"Becker’s on Smarter Technologies: https://www.beckershospitalreview.com/finance/3-rcm-companies-combine/",
+"Fierce Healthcare on Innovaccer/CaduceusHealth: https://www.fiercehealthcare.com/health-tech/innovaccer-picks-caduceushealth",
+"Reuters on Commure: https://www.investing.com/news/stock-market-news/healthcare-ai-firm-commure-valued-at-7-billion-raises-70-million-4699112",
+"Wolters Kluwer on accounting fragmentation: https://www.wolterskluwer.com/en/expert-insights/private-equity-is-reshaping-the-tax-and-accounting-industry",
+"EY on European broker consolidation: https://www.ey.com/en_pt/insights/insurance/how-insurance-broker-consolidation-is-evolving-in-continental-europe",
+"Risk &amp; Insurance on MGA M&amp;A: https://riskandinsurance.com/mga-deals-surge-as-scale-and-specialization-drive-growth/",
+"Reuters on ARS sale: https://www.marketscreener.com/news/american-residential-services-explores-3-5-billion-plus-sale",
+"Morgan Stanley on Sila Services: https://www.morganstanley.com/press-releases/morgan-stanley-capital-partners-agrees-to-sell-sila-services"
+  ];
+
+  // ---------- render funding bars ----------
+  const maxF = Math.max(...funding.map(f=>f[1]));
+  const fc = document.getElementById('fundingChart');
+  funding.forEach(([name,val,cls])=>{
+    const row=document.createElement('div'); row.className='bar-row';
+    row.innerHTML=`<div class="lbl">${name}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" data-w="${(val/maxF*100).toFixed(1)}"></div></div>
+      <div class="val">$${val}m</div>`;
+    fc.appendChild(row);
+  });
+
+  // ---------- render matrix dots ----------
+  const mx=document.getElementById('matrix');
+  matrix.forEach(([name,score])=>{
+    const full=Math.round(score);
+    let dots='';
+    for(let i=1;i<=5;i++) dots+=`<span class="dot ${i<=full?'on':''}"></span>`;
+    const row=document.createElement('div'); row.className='mrow';
+    row.innerHTML=`<div class="name">${name}</div><div class="dots">${dots}<span class="score">${score.toFixed(1)}</span></div>`;
+    mx.appendChild(row);
+  });
+
+  // ---------- sources ----------
+  const sl=document.getElementById('sourceList');
+  sources.forEach((s,i)=>{
+    const m=s.match(/(https?:\/\/\S+)/);
+    const url=m?m[1]:'';
+    const text=url?s.replace(url,'').replace(/:\s*$/,''):s;
+    const div=document.createElement('div'); div.className='src';
+    div.id='ref-'+(i+1);
+    div.innerHTML=`<span class="num">[${i+1}]</span>${text}${url?` <a href="${url}" target="_blank" rel="noopener">↗</a>`:''}`;
+    sl.appendChild(div);
+  });
+
+  // ---------- reveal + bar animation + active nav ----------
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; });
+    }});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
+
+  const links=[...document.querySelectorAll('nav.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const sn=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      const id='#'+e.target.id;
+      links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
+    }});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>s&&sn.observe(s));
+</script>
+</body>
+</html>

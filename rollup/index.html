@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI Roll-Up Playbook — Three Designs</title>
+<style>
+  :root{
+    --bg:#0a0c16; --ink:#eef2ff; --muted:#9aa3c9; --line:rgba(255,255,255,.12);
+    --violet:#8b7bff; --cyan:#46e6ff; --pink:#ff6fb0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg); color:var(--ink); min-height:100vh;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; line-height:1.5;
+    background-image:radial-gradient(1000px 560px at 82% -8%,rgba(139,123,255,.22),transparent 60%),
+                     radial-gradient(820px 560px at -8% 24%,rgba(70,230,255,.13),transparent 60%);
+  }
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:70px 28px;}
+  header{text-align:center;}
+  .eyebrow{display:inline-block; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--cyan); border:1px solid var(--line); padding:6px 14px; border-radius:999px;}
+  h1{font-size:clamp(36px,6vw,66px); line-height:1.04; letter-spacing:-.025em; margin:22px auto 14px; max-width:20ch; font-weight:650;}
+  h1 span{background:linear-gradient(120deg,#fff 30%,var(--violet),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  header p{color:var(--muted); max-width:62ch; margin:0 auto; font-size:18px;}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:54px;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+  .v{border:1px solid var(--line); border-radius:22px; overflow:hidden; background:rgba(255,255,255,.03); transition:.3s; display:flex; flex-direction:column;}
+  .v:hover{border-color:var(--cyan); transform:translateY(-4px);}
+  .preview{aspect-ratio:4/3; position:relative; overflow:hidden; border-bottom:1px solid var(--line);}
+  .vbody{padding:24px;}
+  .vbody .label{color:var(--cyan); font-size:12px; letter-spacing:.2em; text-transform:uppercase;}
+  .vbody h2{margin:8px 0 6px; font-size:22px; letter-spacing:-.01em;}
+  .vbody p{color:var(--muted); margin:0 0 18px; font-size:14.5px;}
+  .vbody ul{list-style:none; padding:0; margin:0 0 18px; display:flex; flex-wrap:wrap; gap:6px;}
+  .vbody li{font-size:12px; padding:4px 10px; border:1px solid var(--line); border-radius:999px; color:var(--muted);}
+  .open{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--violet),var(--cyan)); color:#0a0c16; font-weight:650; padding:11px 17px; border-radius:11px;}
+
+  /* preview A — editorial broadsheet */
+  .pa{background:#f7f3ea; color:#16130d; padding:16px; font-family:Georgia,"Times New Roman",serif; height:100%;}
+  .pa .mast{text-align:center; border-bottom:3px double #16130d; padding-bottom:6px;}
+  .pa .mast .t{font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:#6b6450;}
+  .pa .mast h3{margin:4px 0 2px; font-size:23px; line-height:1;}
+  .pa .mast .s{font-style:italic; color:#6b6450; font-size:10px;}
+  .pa .body{columns:2; column-gap:12px; font-size:8px; color:#3a3526; margin-top:8px; line-height:1.5;}
+  .pa .body p{margin:0 0 5px;}
+  .pa .body p:first-child::first-letter{font-size:24px; float:left; line-height:.8; padding-right:3px; color:#8a2b1f; font-weight:700;}
+  .pa .barline{display:flex; align-items:flex-end; gap:3px; height:30px; margin-top:6px;}
+  .pa .barline i{flex:1; background:#8a2b1f; display:block;}
+
+  /* preview B — terminal */
+  .pb{background:#07090d; color:#c8d3df; padding:0; height:100%; font-family:"SF Mono",ui-monospace,Menlo,monospace; font-size:9px;
+      background-image:linear-gradient(rgba(51,225,161,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(51,225,161,.04) 1px,transparent 1px); background-size:18px 18px;}
+  .pb .bar{background:#05070a; border-bottom:1px solid #1e2733; padding:5px 10px; color:#33e1a1; letter-spacing:.1em;}
+  .pb .in{padding:12px;}
+  .pb .hl{color:#33e1a1;}
+  .pb h3{color:#eef4fb; font-size:17px; margin:6px 0 8px; letter-spacing:-.01em;}
+  .pb .hb{display:flex; align-items:center; gap:6px; margin:4px 0;}
+  .pb .hb .l{width:42px; color:#6b7a8d; text-align:right;}
+  .pb .hb .t{flex:1; height:9px; background:#0a1016; border:1px solid #1e2733;}
+  .pb .hb .t i{display:block; height:100%; background:linear-gradient(90deg,#1c8d65,#33e1a1);}
+
+  /* preview C — scrollytelling */
+  .pc{height:100%; background:#06070f; color:#eaf0ff; padding:16px; position:relative; overflow:hidden; font-family:"Inter",system-ui,sans-serif;}
+  .pc .g1{position:absolute; width:180px; height:180px; border-radius:50%; filter:blur(46px); background:#8b7bff; opacity:.6; top:-40px; left:-30px;}
+  .pc .g2{position:absolute; width:150px; height:150px; border-radius:50%; filter:blur(46px); background:#ff6fb0; opacity:.4; bottom:-40px; right:-20px;}
+  .pc .eb{position:relative; font-size:8px; letter-spacing:.22em; text-transform:uppercase; color:#46e6ff;}
+  .pc h3{position:relative; font-size:30px; line-height:.98; margin:10px 0 0; letter-spacing:-.03em; font-weight:650;}
+  .pc h3 span{background:linear-gradient(120deg,#fff,#8b7bff,#ff6fb0); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .pc .meta{position:relative; display:flex; gap:14px; margin-top:18px; font-size:8px; color:#8b93b8;}
+  .pc .meta b{display:block; color:#fff; font-size:17px;}
+  .pc .dotcol{position:absolute; right:12px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:6px;}
+  .pc .dotcol i{width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.25);}
+  .pc .dotcol i.on{background:#46e6ff;}
+
+  footer{text-align:center; padding:30px; color:var(--muted); font-size:13px;}
+  .src-note{text-align:center; margin-top:40px; color:var(--muted); font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">One report · three designs</span>
+    <h1>The AI Roll-Up Playbook,<br><span>told three ways.</span></h1>
+    <p>The same field report — market map, vertical prioritization, and the Europe opportunity — rebuilt as three working microsites. Each leans on a different typographic system and its own charts. One is driven by scrolljacking.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- A -->
+    <div class="v">
+      <a href="variant-a/index.html"><div class="preview">
+        <div class="pa">
+          <div class="mast">
+            <div class="t">Vol. MMXXVI · No. 1 · A Field Report</div>
+            <h3>The AI Roll-Up Playbook</h3>
+            <div class="s">Market map &amp; vertical prioritization</div>
+          </div>
+          <div class="body">
+            <p>AI-enabled roll-ups are a distinct company-creation model — neither vertical SaaS nor a private-equity buy-and-build with a thin technology veneer over the top of it.</p>
+            <p>Buy the trusted local provider, centralize the operating system, use AI to raise throughput and margin, then acquire more across the fragmented base.</p>
+          </div>
+          <div class="barline"><i style="height:100%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:44%"></i><i style="height:40%"></i><i style="height:30%"></i><i style="height:22%"></i></div>
+        </div>
+      </div></a>
+      <div class="vbody">
+        <span class="label">Variant A</span>
+        <h2>Editorial Broadsheet</h2>
+        <p>A printed-journal feel: cream paper, double-rule masthead, serif body in columns, drop caps, and restrained oxblood bar charts.</p>
+        <ul><li>Serif</li><li>Multi-column</li><li>Data tables</li><li>SVG bars</li></ul>
+        <a class="open" href="variant-a/index.html">Open Variant A →</a>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="v">
+      <a href="variant-b/index.html"><div class="preview">
+        <div class="pb">
+          <div class="bar">▌AI-ROLLUP TERMINAL &nbsp; EU TAM <span style="color:#eef4fb">$4.0T</span> ▲ &nbsp; ● LIVE</div>
+          <div class="in">
+            <div class="hl" style="font-size:8px;letter-spacing:.2em">MARKET INTELLIGENCE</div>
+            <h3>The AI <span class="hl">Roll-Up</span> Playbook</h3>
+            <div class="hb"><span class="l">BEACON</span><span class="t"><i style="width:100%"></i></span></div>
+            <div class="hb"><span class="l">EUDIA</span><span class="t"><i style="width:42%"></i></span></div>
+            <div class="hb"><span class="l">SHIELD</span><span class="t"><i style="width:40%"></i></span></div>
+            <div class="hb"><span class="l">ACCRUAL</span><span class="t"><i style="width:30%"></i></span></div>
+            <div class="hb"><span class="l">TITAN</span><span class="t"><i style="width:29%"></i></span></div>
+            <div style="color:#6b7a8d;font-size:8px;margin-top:8px">// DISCLOSED RAISES · USD MILLIONS</div>
+          </div>
+        </div>
+      </div></a>
+      <div class="vbody">
+        <span class="label">Variant B</span>
+        <h2>Terminal / Dashboard</h2>
+        <p>A Bloomberg-style intelligence desk: monospace, ticker tape, neon-green data viz, radial gauges, and a risk-vs-attractiveness scatter plot.</p>
+        <ul><li>Monospace</li><li>Live ticker</li><li>Gauges</li><li>Scatter plot</li></ul>
+        <a class="open" href="variant-b/index.html">Open Variant B →</a>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="v">
+      <a href="variant-c/index.html"><div class="preview">
+        <div class="pc">
+          <div class="g1"></div><div class="g2"></div>
+          <div class="eb">Field Report · Scroll</div>
+          <h3>The AI<br><span>Roll-Up</span><br>Playbook</h3>
+          <div class="meta"><div><b>$4T</b>EU pool</div><div><b>11</b>verticals</div><div><b>3</b>archetypes</div></div>
+          <div class="dotcol"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div></a>
+      <div class="vbody">
+        <span class="label">Variant C</span>
+        <h2>Scrollytelling</h2>
+        <p>Full-viewport snap panels with kinetic typography and a pinned chart that morphs from capital flows to rankings to a risk map as you scroll.</p>
+        <ul><li>Scrolljacking</li><li>Pinned charts</li><li>Word reveals</li><li>Snap panels</li></ul>
+        <a class="open" href="variant-c/index.html">Open Variant C →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="src-note">All three are built from the same source report (13 May 2026, updated 2 June 2026) and share the same 52-source reference list.</div>
+</div>
+<footer>Three design alternatives · typography &amp; charts · one with scrolljacking</footer>
+</body>
+</html>
