@@ -38,5 +38,17 @@ epoch.ai/data/benchmark_data.zip → per-run CSV rows with a Logs column pointin
 ## 2026-06-09 — Other corpora: OSWorld-Verified 472 GB (use HTTP range/remotezip; all_result.json is Python-repr, not JSON; step-budget ablations 15/50/100 are unique); AgentRewardBench has the only human burden-adjacent labels (1,408 annotations: success, side_effect, optimality, looping; no license); GAIA gated tasks-only; TRAIL gated 401; AgentBench releases no eval trajectories
 AgentRewardBench: McGill-NLP/agent-reward-bench, ungated, 4 models x 4 web benchmarks on shared tasks, cleaned trajectory JSONs with n_steps, last_action_error, per-component token stats. OSWorld MIT.
 
+## 2026-06-10 — Citation verification round 1: 12/12 verified, 0 quarantined; METR paper retitled between arXiv versions; tau-bench's official title uses the Greek letter
+arXiv 2503.14499 v1 was "Measuring AI Ability to Complete Long Tasks"; later revisions are "Measuring AI Ability to Complete Long Software Tasks" — cite the current title or pin v1. Author-name accents matter: Lù (AgentRewardBench). Holmstrom prints without umlaut in the JSTOR scan of JLEO 1991. Key verified locations: Coase p. 392 ("operation of a market costs something"); Williamson 1979 p. 239; Holmstrom-Milgrom p. 26; Grossman-Hart p. 691; Hart-Moore p. 1120; Marschak-Radner p. 123; Aghion-Tirole p. 1; Acemoglu-Restrepo p. 1495 (and full-text check: no governance/agency/transaction-cost term in the model).
+
+## 2026-06-10 — Pre-emption check 2024-2026: no result pre-empts T1 or T3; three neighbors must be cited and differentiated
+Hadfield-Koh "An Economy of AI Agents" (arXiv 2509.01063): survey, no propositions. Erol et al. "Cost-of-Pass" (arXiv 2504.13359): cost-ratio-below-1 criterion on inference cost only, no governance term — the closest DBR lookalike. Huang-Xiao-Vishnoi "Delegation and Verification Under AI" (arXiv 2603.02961): closest formal neighbor; thresholds in worker verification reliability, mechanism requires misaligned evaluation; no capability threshold per task, no alignment-robust separation. Also relevant framing: Shahidi et al. "Coasean Singularity" (NBER WP 34468, conceptual, no theorems).
+
+## 2026-06-10 — O*NET is downloadable without registration, CC BY 4.0
+onetcenter.org/database.html, e.g. https://www.onetcenter.org/dl_files/database/db_30_3_text/Task%20Statements.txt returns HTTP 200 (~2.8 MB). Usable as the occupation mapping layer the agenda assigns it (Section IX).
+
+## 2026-06-10 — Subagent runners can end their turn early on long streaming downloads; resume by relaunching with "continue from STEPLOG" instructions
+The first C5 runner returned mid-extraction ("waiting for a monitor notification" — subagents cannot be woken). SPEC + STEPLOG discipline made the resume cheap. Instruct runners explicitly: do not end the turn until RESULTS.md is committed; block on downloads.
+
 ## 2026-06-09 — Judge monoculture constraint: this environment has Claude models only (no OpenAI/Google keys found), so C1's "inter-judge reliability across model judges" degrades to across-Claude-variants unless the user supplies external keys
 State this limit in any IDI-scoring claim, or obtain keys at the gate.

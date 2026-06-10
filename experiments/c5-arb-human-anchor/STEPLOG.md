@@ -89,3 +89,15 @@ All decisions below were fixed before any model was run or any AUC seen.
   coding over the 4 agents); exploratory only.
 - Random seed fixed at 20260610 for the bootstrap.
 - Tie-corrected Mann-Whitney (midranks) used for AUC.
+
+## Step 5 — RUN RESUMED (2026-06-10, new runner session)
+
+- The previous runner session ended mid-extraction: `data/trajectory_features.csv` held 450 of
+  1,302 rows (0 fetch errors). State verified on resume: annotations.csv intact (1,408 data
+  rows), cleaned_filelist.txt intact (1,302 entries), scripts present
+  (extract_features.py / build_table.py / analyze.py — reviewed, consistent with the
+  registered SPEC and the decisions in Steps 2–4 above; not modified).
+- sklearn 1.9.0 available in this session (no pip install needed); pandas 3.0.3,
+  numpy 2.4.6, scipy 1.17.1.
+- Resumed `extract_features.py`, which skips already-extracted (benchmark, task_id,
+  model_name) keys and appends — no completed work redone.
