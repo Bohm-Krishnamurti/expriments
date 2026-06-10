@@ -101,3 +101,39 @@ All decisions below were fixed before any model was run or any AUC seen.
   numpy 2.4.6, scipy 1.17.1.
 - Resumed `extract_features.py`, which skips already-extracted (benchmark, task_id,
   model_name) keys and appends — no completed work redone.
+- **INCIDENT (plumbing only) + repair:** the previous session's extractor process was in
+  fact still alive in the container and writing to the same CSV when the resumed extractor
+  was launched; two concurrent writers (one truncate-mode handle, one append-mode handle)
+  interleaved on `data/trajectory_features.csv`. Both processes finished (extract.log shows
+  two "done" lines). Aftermath audited with `scripts/repair_features.py` (strict per-row
+  validation against the filelist key set + field-level sanity checks): 1,394 raw rows ->
+  1 corrupt row dropped, 91 byte-identical duplicate keys dropped, **0 conflicting
+  duplicates**, 1,302 valid unique rows covering all 1,302 filelist keys; 0 re-fetches
+  needed. CSV rewritten atomically in filelist order and re-verified (1,302 rows / 1,302
+  unique keys / 0 fetch errors). Because duplicates were byte-identical and the corrupt
+  row was dropped and re-validated, no feature values were affected. Feature definitions
+  untouched; this was storage plumbing only.
+
+## Step 6 — Join, aggregation, registered analysis (resumed session)
+
+- `scripts/build_table.py` run on the repaired feature table. Counts logged: 1,408
+  annotation rows over 1,302 unique (benchmark, task_id, model_name) keys; 106 keys with 2
+  annotators (max 2); Unsure votes: side_effect 1, optimality 1, success 1, looping 0
+  (treated as missing votes per Step 2). Ties at aggregation (resolved to positive per
+  SPEC): side_effect 4, suboptimal 12, looping 11, success 12. Join: 1,302 joined, 0
+  annotations without trajectory, 0 trajectories without annotation. obs_tokens coverage
+  100% -> feature kept per the registered >=90% rule. 0 path/JSON metadata mismatches.
+- Inter-annotator agreement (pooled pairwise, on the 106 doubly-annotated keys):
+  side_effect 96.2% / kappa 0.65; suboptimal (binarized) 88.6% / kappa 0.74; looping
+  89.6% / kappa 0.77; success 88.6% / kappa 0.76.
+- `scripts/analyze.py` run exactly as registered (no changes to the analysis code in this
+  session). sklearn 1.9.0 emitted a FutureWarning that `penalty=` is deprecated; behavior
+  with penalty='l2' + C is unchanged in 1.9 (warning only), so the registered model is
+  what ran. Outputs in `data/results.json`; registered numbers in RESULTS.md.
+- Verdicts under the registered rules: H1 (side_effect) NOT supported (AUC 0.576 < 0.70;
+  margin +0.098 did exceed 0.05). H2 (suboptimal) NOT supported (AUC 0.891 >= 0.70 but
+  margin over length-only +0.009 < 0.05). The SPEC's null statement therefore applies.
+  Looping (no decision weight): AUC 0.938, margin +0.049. Success (secondary): AUC 0.816,
+  margin +0.015.
+- RESULTS.md written: registered statistics and verdicts first, exploratory model-dummies
+  sensitivity clearly separated, analytic do-nothing note included.
