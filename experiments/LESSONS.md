@@ -50,5 +50,14 @@ onetcenter.org/database.html, e.g. https://www.onetcenter.org/dl_files/database/
 ## 2026-06-10 — Subagent runners can end their turn early on long streaming downloads; resume by relaunching with "continue from STEPLOG" instructions
 The first C5 runner returned mid-extraction ("waiting for a monitor notification" — subagents cannot be woken). SPEC + STEPLOG discipline made the resume cheap. Instruct runners explicitly: do not end the turn until RESULTS.md is committed; block on downloads.
 
+## 2026-06-10 — C2 outcome: H1 supported, H2 falsified with an informative robustness decomposition, H3 sign-supported but weak; independent verifier reproduced every number
+The falsified persistence hypothesis (divergence narrows up the ladder, p=0.0220) is carried entirely by the flakiness component, which is mechanically coupled to pass^1; without it the trend reverses (-0.7536). Lesson for proxy design: never let a success-derived component into a proxy whose claim is divergence from success. Solvable-subset branch 2 (structural do-nothing classification from embedded task definitions) worked; post-v1.0.0 airline do-nothing share (46%) exceeds the ABC paper's 38% (task-set drift, conservative direction).
+
+## 2026-06-10 — C5 outcome: clean registered null; suboptimality is predictable (AUC 0.891) but a bare step count already achieves 0.882
+Lesson: trajectory-length confounding dominates burden-adjacent labels in web-agent corpora; any future proxy claim must clear a length-only baseline, and side-effect labels (prevalence 6.7%) carry too little signal at this corpus size (pooled LOBO below chance). Two concurrent feature-extractor processes corrupted a CSV (resume relaunched while the original was alive); repair-with-validation recovered all rows, but check for orphaned processes before relaunching runners.
+
+## 2026-06-10 — Paper self-check round: proofs had no logical errors but two unstated assumptions (m >= 0; comparative static needs "differ only in k"), and two neighbors were not actually distinguished until rewritten
+Marschak-Radner and Aghion-Tirole initially shared one sentence that differentiated by formalization rather than by object or result; the fix states a missing-result claim per neighbor (no capability index/threshold in team theory; Aghion-Tirole's loss of control vanishes under congruence while s(k) survives by Prop 2). Verifier also confirmed citation closure 15/15 and style contract (no body bullets, no em-dashes).
+
 ## 2026-06-09 — Judge monoculture constraint: this environment has Claude models only (no OpenAI/Google keys found), so C1's "inter-judge reliability across model judges" degrades to across-Claude-variants unless the user supplies external keys
 State this limit in any IDI-scoring claim, or obtain keys at the gate.
