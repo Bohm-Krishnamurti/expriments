@@ -1,0 +1,101 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% Citation placeholders: every \needcite{...} must be replaced with a verified
+% MLA parenthetical citation before compilation is considered final.
+\newcommand{\needcite}[1]{\textbf{[CITE: #1]}}
+
+\title{The Delegation Burden: A Threshold and a Separation Result for the Cost of Delegating Work to Artificial Agents}
+\author{Philip Bohm-Krishnamurti\thanks{Draft prepared with automated research assistance; all errors are the author's. Empirical companion analyses are pre-registered in the project repository.}}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Delegating work to an artificial agent is not free even when the agent is capable, because a human principal must still specify intent, monitor execution, verify output, and repair failure. We define delegation cost as the human governance effort that converts an objective into an accepted outcome through an agent, and we prove two results. First, for each work unit there is a unique capability threshold above which delegation is cheaper than direct execution, and the threshold rises with the context specificity of the work. Second, delegation cost orders work units differently from transaction cost and remains strictly positive under perfect incentive alignment, so it is neither transaction cost nor agency cost relabeled. The construct yields agent-observable empirical predictions, two of which we examine in pre-registered companion analyses of existing benchmark corpora.
+\end{abstract}
+
+\section{Introduction}
+
+When Coase asked why firms exist, his answer was that using the market mechanism is costly, since ``the operation of a market costs something'' \needcite{Coase 1937, page}. The question this paper asks is the same question one technological layer down: what does it cost a human to use an artificial agent, and when does that cost fall below the cost of doing the work oneself? We call the relevant quantity delegation cost, the human governance effort required to convert an objective into an acceptable outcome through an agent rather than by direct execution, and we take as our unit of analysis the delegable work unit, a bounded episode of work with an objective, context, constraints, an acceptance criterion, and consequences. The premise, which current evaluation practice supports, is that the capability of the agent and the delegability of the work are different quantities, because a capable agent still has to be told what to do, watched while it does it, checked when it finishes, and cleaned up after when it fails.
+
+The contribution is deliberately narrow. We state the construct formally, we prove a delegability threshold result with comparative statics in context specificity, and we prove a separation result showing that delegation cost is ordered differently from transaction cost and survives the alignment that would extinguish agency cost. The threshold result makes the construct usable, since it converts a capability index and a task description into an adoption prediction, and the separation result answers the objection the construct most often meets, namely that it is some familiar cost in new clothing.
+
+\section{Relation to antecedents}
+
+Our claim against the nearest neighbors is one of object, not of emphasis. Transaction-cost economics after Coase and Williamson prices the friction of exchanging across a boundary between parties with interests, and governance structures are chosen to economize on hazards that asset specificity, uncertainty, and frequency create \needcite{Williamson, page}. The friction priced here is different in kind: there is no counterparty and no opportunism, and the hazard is that intent is communicated incompletely to an executor that cannot be assumed to share the principal's unstated context. Principal-agent theory after Holmstrom and Milgrom derives the cost of delegation from divergent objectives under imperfect observability, and in the multitask version incentive pay distorts effort toward what is measured \needcite{Holmstrom and Milgrom 1991, page}; our agent has no objective of its own in the incentive-theoretic sense, and Proposition 2 shows the governance cost that remains when the alignment problem is assumed away entirely. Incomplete-contract theory after Grossman, Hart, and Moore locates the value of ownership in residual control rights when contingencies cannot be specified \needcite{Grossman and Hart 1986, page}; delegation to an agent is incomplete contracting without a counterparty to own anything, so the residual decision rights stay with the principal and their exercise is precisely the cost we model rather than a right whose allocation is at issue. Team theory after Marschak and Radner studies agents who share an objective but hold distributed information \needcite{Marschak and Radner, section}, which is the closest structural relative, and Aghion and Tirole study delegation as an allocation of authority trading control against initiative \needcite{Aghion and Tirole 1997, page}; in both, the cost of moving information and authority is the modeling primitive we make explicit and price in human effort. Finally, the task-based automation literature after Acemoglu and Restrepo allocates tasks between labor and capital by comparative cost, with displacement and reinstatement margins \needcite{Acemoglu and Restrepo 2018, page}, but it carries no governance term, so a task can be cheap for the machine to perform and dear for the human to delegate, which is exactly the wedge Proposition 1 prices and METR-style horizon measurement leaves unmeasured \needcite{Kwa et al. 2025, section}.
+
+\section{The model}
+
+\subsection{Primitives}
+
+A work unit is $w=(o,x,K,A,S,E,L)$: an objective, initial context, constraints, an acceptance predicate, a stakeholder and authority structure, an environment, and a loss function over failures. Three reduced-form characteristics of $w$ carry the analysis: a direct cost $h(w)>0$, the human effort to complete $w$ without an agent at the required quality and risk; a context specificity $k(w)\ge 0$, the amount of principal-held information the acceptable completion of $w$ requires; and a remediation cost $r(w)>0$ incurred when a delegated attempt fails. Agents are indexed by capability $\theta\in[0,\infty)$. Delegation generates human governance effort
+\[
+G(\theta;w)\;=\;s(k(w))\;+\;m(\theta;w)\;+\;\bigl(1-p(\theta,k(w))\bigr)\,r(w),
+\]
+where $s$ is specification effort, $m$ is monitoring and verification effort, and $p\in[0,1]$ is the probability the delegated attempt is acceptable. The delegation burden ratio is $\mathrm{DBR}(\theta;w)=G(\theta;w)/h(w)$, and $w$ is delegable at $\theta$ when $\mathrm{DBR}(\theta;w)<1$.
+
+\begin{assumption}\label{a:mono}
+$G(\cdot\,;w)$ is continuous and strictly decreasing in $\theta$, with $p(\cdot,k)$ strictly increasing, $m(\cdot\,;w)$ nonincreasing, and $s$ strictly increasing in $k$ with $s(0)=0$.
+\end{assumption}
+
+\begin{assumption}\label{a:ends}
+$G(0;w)>h(w)$ for every $w$, and $G_\infty(w):=\lim_{\theta\to\infty}G(\theta;w)$ exists.
+\end{assumption}
+
+The limit in Assumption \ref{a:ends} exists automatically, since $G$ is decreasing and bounded below by zero; we name it because it is the structural delegation cost, the governance effort that survives arbitrary capability.
+
+\subsection{A delegability threshold}
+
+\begin{proposition}\label{p:threshold}
+Under Assumptions \ref{a:mono} and \ref{a:ends}, for every work unit $w$ there is a unique $\theta^{*}(w)\in(0,\infty]$ such that $\mathrm{DBR}(\theta;w)<1$ if and only if $\theta>\theta^{*}(w)$, and $\theta^{*}(w)$ is finite if and only if $G_\infty(w)<h(w)$. Moreover, if $k'>k$ and $G(\theta;k')\ge G(\theta;k)$ for all $\theta$ with strict inequality at $\theta=\theta^{*}(k)$, which holds in particular when $s$ is strictly increasing and $p$ is nonincreasing in $k$ with all else fixed, then $\theta^{*}(k')>\theta^{*}(k)$ whenever $\theta^{*}(k)$ is finite. The delegable set $W_D(\theta)=\{w:\theta>\theta^{*}(w)\}$ is nondecreasing in $\theta$.
+\end{proposition}
+
+\begin{proof}
+Fix $w$ and write $g(\theta)=G(\theta;w)-h(w)$, which is continuous and strictly decreasing with $g(0)>0$ by Assumption \ref{a:ends}. If $G_\infty(w)\ge h(w)$ then $g(\theta)>g_\infty=G_\infty(w)-h(w)\ge0$ for all finite $\theta$, so no finite crossing exists and $\theta^{*}(w)=\infty$ satisfies the statement. If $G_\infty(w)<h(w)$ then $g(\theta)<0$ for all $\theta$ large enough, so by the intermediate value theorem there is $\theta^{*}$ with $g(\theta^{*})=0$, and strict monotonicity makes it unique and gives $g(\theta)<0$ exactly on $\theta>\theta^{*}$. For the comparative static, note $G(\theta^{*}(k);k')>G(\theta^{*}(k);k)=h$, so $g(\cdot\,;k')$ is still positive at $\theta^{*}(k)$, and since it is strictly decreasing its zero, if any, lies strictly to the right; hence $\theta^{*}(k')>\theta^{*}(k)$. Monotonicity of $W_D(\theta)$ is immediate from the threshold characterization.
+\end{proof}
+
+The threshold formalizes the program's adoption claim, that work moves to agents when the risk-adjusted cost of delegating falls below the risk-adjusted cost of doing, and the comparative static says that the order in which work units cross is governed by structural coordinates of the work, with context specificity raising the capability bar one for one through both the specification term and the reliability term. The index that the threshold map induces on work units is what the companion program calls the intrinsic delegability index.
+
+\subsection{A separation result}
+
+Let the task space $W$ contain, for each pair $(\sigma,k)\in[0,1]^2$, a work unit with asset specificity $\sigma$ and context specificity $k$, where transaction cost is $TC(w)=\tau(\sigma(w))$ for some strictly increasing $\tau$, in the spirit of governance-choice theory. Say the executor is aligned on $w$ if its operative objective coincides with the principal's acceptance predicate, in which case classical agency cost, the residual loss from objective divergence under hidden action, is zero. Assume the codifiable pole is regular: at $k=0$ the work is fully specifiable and machine-checkable, so $s(0)=0$, $m(\theta;w)\to0$, and $p(\theta,0)\to1$ as $\theta\to\infty$, hence $G_\infty(w)=0$ when $k(w)=0$.
+
+\begin{proposition}\label{p:separation}
+(i) There exist work units $w_1,w_2\in W$ and a finite $\bar\theta$ such that $TC(w_1)<TC(w_2)$ while $G(\theta;w_1)>G(\theta;w_2)$ for all $\theta>\bar\theta$, so the delegation-cost order is not a monotone transform of the transaction-cost order. (ii) There exists $w\in W$ with an aligned executor, hence zero agency cost, such that $\inf_\theta G(\theta;w)\ge s(k(w))>0$, so delegation cost is strictly positive where agency cost is identically zero.
+\end{proposition}
+
+\begin{proof}
+For (i) take $w_1$ with $(\sigma,k)=(0,1)$ and $w_2$ with $(\sigma,k)=(1,0)$. Then $TC(w_1)=\tau(0)<\tau(1)=TC(w_2)$. By the regular pole, $G(\theta;w_2)\to G_\infty(w_2)=0$, so there is finite $\bar\theta$ with $G(\theta;w_2)<s(1)$ for all $\theta>\bar\theta$, while $G(\theta;w_1)\ge s(k(w_1))=s(1)$ for every $\theta$ because the specification term does not depend on $\theta$ and the remaining terms are nonnegative. Hence $G(\theta;w_1)\ge s(1)>G(\theta;w_2)$ on $\theta>\bar\theta$. For (ii) take $w=w_1$ with an aligned executor: agency cost is zero by alignment, while $G(\theta;w)\ge s(1)>0$ for all $\theta$ by the same bound, and $s(1)>s(0)=0$ by strict monotonicity of $s$.
+\end{proof}
+
+The economic content of part (i) is that the frictions price different things: transaction cost rises with relationship-specific investment and the hazards of exchange, while delegation cost rises with how much of the principal's private context the work consumes, and a work unit can be cheap on one dimension and dear on the other. Part (ii) is the answer to the reduction to agency theory: an agent with no interests of its own, perfectly obedient to its instruction, still costs $s(k)$ to instruct, because alignment with a stated objective is not possession of the unstated context that makes the objective complete. The wedge is specification, not motivation.
+
+\section{Empirical implications}
+
+% ===================== PLACEHOLDER SECTION =====================
+% This section is contractually a placeholder until the pre-registered companion
+% analyses (C2: tau2-bench burden-proxy divergence; C5: AgentRewardBench human-label
+% anchor) have resolved and passed independent verification. Do not assert findings
+% here before that gate. To be replaced with verified results.
+\emph{[Placeholder: pre-registered companion analyses C2 and C5 are running; this section reports their verified outcomes or their verified nulls, and nothing else.]}
+% ===============================================================
+
+\section{Limitations}
+
+The theory prices human governance effort, but none of its central ratios can be measured without human data, since the measurand of the delegation burden ratio, the human supervision share, and supervision leverage is human time and attention, and the companion analyses observe only agent-side signals. A predictor validated against agent-observable outcomes, or against existing human annotations of trajectories, is a predictor and not a measurement, and any number reported as a burden ratio from such data assumes the very terms a human-subject study would measure. The model's reduced forms are correspondingly coarse: $s$, $m$, and $p$ summarize what a richer theory would derive, the regular-pole assumption locates full verifiability at zero context specificity by construction, and the separation result is an existence claim over a rich task space rather than a measurement of where actual work units sit. What the results establish is that the construct is coherent and distinct; how large its terms are is an empirical question this paper does not answer.
+
+\section*{Works Cited}
+% To be generated from refs.bib entries verified by the citation-verification pass.
+% No entry may appear here that is not in the verified set.
+\emph{[Placeholder: verified MLA entries pending.]}
+
+\end{document}
