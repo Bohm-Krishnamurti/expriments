@@ -231,3 +231,18 @@ airline / 6.0% retail; output-everything 40% / 9.6%; arXiv:2507.02825).
 3. scripts/download_trajectories.py  (45/45 OK)
 4. scripts/extract_table.py  -> task_by_submission.csv, data/extract_log.json
 5. scripts/analyze.py  -> ladder.csv, data/analyze_output.txt (stdout also in RESULTS.md)
+
+## Step 10 — Finalization and commit
+
+- Reproducibility check: scripts/analyze.py re-run end-to-end; all registered
+  statistics identical to the recorded values (REPRODUCED).
+- Committed outputs: STEPLOG.md, RESULTS.md, .gitignore, task_by_submission.csv,
+  ladder.csv, scripts/{list_bucket,download_trajectories,extract_table,analyze}.py.
+  Raw downloads (data/) excluded from git; download_trajectories.py regenerates them
+  from public URLs.
+- Provenance note: a concurrent orchestrator session made WIP snapshot commits on this
+  branch while this run was in progress (e9efc05, cead50d) and swept the final C2
+  outputs into commit 75a4e10 (whose message concerns the paper). This commit (message
+  "C2: ...") marks the verified final state of the C2 run; the registered verdicts are
+  H1 SUPPORTED, H2 FALSIFIED, H3 SUPPORTED (sign rule), as recorded in Step 8 and
+  RESULTS.md.
