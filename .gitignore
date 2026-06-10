@@ -2,3 +2,4 @@ experiments/*/data/
 paper/*.aux
 paper/*.log
 paper/*.out
+__pycache__/
