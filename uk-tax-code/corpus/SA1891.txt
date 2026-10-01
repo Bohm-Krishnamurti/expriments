@@ -1,0 +1,451 @@
+# Stamp Act 1891
+# Source: https://www.legislation.gov.uk/ukpga/Vict/54-55/39 (revised text; valid 2020-07-22; modified 2020-10-05)
+# Outstanding changes not yet applied by legislation.gov.uk: 0
+# Contains public sector information licensed under the Open Government Licence v3.0.
+# An Act to consolidate the Enactments granting and relating to the Stamp Duties upon Instruments and certain other enactments relating to Stamp Duties.
+
+§ SA1891 s.1 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/1 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+
+§ SA1891 s.2 — All duties to be paid according to regulations of Act.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/2 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+All stamp duties for the time being chargeable by law upon any instruments are to be paid and denoted according to the regulations in this Act contained, and except where express provision is made to the contrary are to be denoted by stamps produced by means of a die only.
+
+§ SA1891 s.3 — How instruments are to be written and stamped.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/3 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+(1) Every instrument written upon stamped material is to be written in such manner, and every instrument partly or wholly written before being stamped is to be so stamped, that the stamp may appear on the face of the instrument, and cannot be used for or applied to any other instrument written upon the same piece of material.
+(2) If more than one instrument be written upon the same piece of material, every one of the instruments is to be separately and distinctly stamped with the duty with which it is chargeable.
+
+§ SA1891 s.4 — Instruments to be separately charged with duty in certain cases.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/4 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+Except where express provision to the contrary is made by this or any other Act,—
+(a) An instrument containing or relating to several distinct matters is to be separately and distinctly charged, as if it were a separate instrument, with duty in respect of each of the matters;
+(b) An instrument made for any consideration in respect whereof it is chargeable with ad valorem duty, and also for any further or other valuable consideration or considerations, is to be separately and distinctly charged, as if it were a separate instrument, with duty in respect of each of the considerations.
+
+§ SA1891 s.5 — Facts and circumstances affecting duty to be set forth in instruments.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/5 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+All the facts and circumstances affecting the liability of any instrument to duty, or the amount of the duty with which any instrument is chargeable, are to be fully and truly set forth in the instrument; and every person who, with intent to defraud Her Majesty,
+(a) executes any instrument in which all the said facts and circumstances are not fully and truly set forth; or
+(b) being employed or concerned in or about the preparation of any instrument, neglects or omits fully and truly to set forth therein all the said facts and circumstances;
+shall incur a penalty not exceeding £3,000.
+
+§ SA1891 s.6 — Mode of calculating ad valorem duty in certain cases.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/6 | Part I Regulations applicable to Instruments generally > Charge of Duty upon Instruments
+(1) Where an instrument is chargeable with ad valorem duty in respect of
+    (a) any money in any foreign or colonial currency, or
+    (b) any stock or marketable security,
+    the duty shall be calculated on the value, on the day of the date of the instrument, of the money in British currency according to the current rate of exchange, or of the stock or security according to the average price thereof.
+(2) Where an instrument contains a statement of current rate of exchange, or average price, as the case may require, and is stamped in accordance with that statement, it is, so far as regards the subject matter of the statement, to be deemed duly stamped, unless or until it is shown that the statement is untrue, and that the instrument is in fact insufficiently stamped.
+
+§ SA1891 s.7 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/7 | Part I Regulations applicable to Instruments generally > Use of Adhesive Stamps
+
+§ SA1891 s.8 — General direction as to the cancellation of adhesive stamps.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/8 | Part I Regulations applicable to Instruments generally > Use of Adhesive Stamps
+…
+
+§ SA1891 s.9 — Penalty for frauds in relation to adhesive stamps.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/9 | Part I Regulations applicable to Instruments generally > Use of Adhesive Stamps
+(1) If any person—
+    (a) Fraudulently removes or causes to be removed from any instrument any adhesive stamp, or affixes to any other instrument or uses for any postal purpose any adhesive stamp which has been so removed, with intent that the stamp may be used again; or
+    (b) Sells or offers for sale, or utters, any adhesive stamp which has been so removed, or utters any instrument, having thereon any adhesive stamp which has to his knowledge been so removed as aforesaid;
+    he is liable to a penalty not exceeding £3,000.
+(2) …
+
+§ SA1891 s.10 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/10 | Part I Regulations applicable to Instruments generally > Appropriated Stamps and Denoting Stamps
+
+§ SA1891 s.11 — Denoting stamps.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/11 | Part I Regulations applicable to Instruments generally > Appropriated Stamps and Denoting Stamps
+Where the duty with which an instrument is chargeable depends in any manner upon the duty paid upon another instrument, the payment of the last-mentioned duty shall, upon application to the Commissioners and production of both the instruments, be denoted upon the first-mentioned instrument in such manner as the Commissioners think fit.
+
+§ SA1891 s.12 — Adjudication by Commissioners.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/12 | Part I Regulations applicable to Instruments generally > Adjudication Stamps
+(1) Subject to such regulations as the Commissioners may think fit to make, the Commissioners may be required by any person to adjudicate with reference to any executed instrument upon the questions—
+    (a) whether it is chargeable with duty;
+    (b) with what amount of duty it is chargeable;
+    (c) whether any penalty is payable under section 15B (penalty on late stamping);
+    (d) what penalty is in their opinion correct and appropriate.
+(2) The Commissioners may require to be furnished with an abstract of the instrument and with such evidence as they may require as to the facts and circumstances relevant to those questions.
+(3) The Commissioners shall give notice of their decision upon those questions to the person by whom the adjudication was required.
+(4) If the Commissioners decide that the instrument is not chargeable with any duty, it may be stamped with a particular stamp denoting that it has been the subject of adjudication and is not chargeable with any duty.
+(5) If the Commissioners decide that the instrument is chargeable with duty and assess the amount of duty chargeable, the instrument when stamped in accordance with their decision may be stamped with a particular stamp denoting that it has been the subject of adjudication and is duly stamped.
+(6) Every instrument stamped in accordance with subsection (4) or (5) shall be admissible in evidence and available for all purposes notwithstanding any objection relating to duty.
+
+§ SA1891 s.12A — Adjudication: supplementary provisions.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/12A | Part I Regulations applicable to Instruments generally > Adjudication Stamps
+(1) An instrument which has been the subject of adjudication by the Commissioners under section 12 shall not, if it is unstamped or insufficiently stamped, be stamped otherwise than in accordance with the Commissioners’ decision on the adjudication.
+(2) If without reasonable excuse any such instrument is not duly stamped within 30 days after the date on which the Commissioners gave notice of their decision, or such longer period as the Commissioners may allow, the person by whom the adjudication was required is liable to a penalty not exceeding £300.
+(3) A statutory declaration made for the purposes of section 12 shall not be used against the person making it in any proceedings whatever, except in an inquiry as to the duty with which the instrument to which it relates is chargeable or as to the penalty payable on stamping that instrument.
+(4) Every person by whom any such declaration is made shall, on payment of the duty chargeable upon the instrument to which it relates, and any interest or penalty payable on stamping, be relieved from any penalty to which he may be liable by reason of the omission to state truly in the instrument any fact or circumstance required by this Act to be so stated.
+
+§ SA1891 s.13 — Appeal against Commissioners’ decision on adjudication.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/13 | Part I Regulations applicable to Instruments generally > Adjudication Stamps
+(1) A person who is dissatisfied with a decision of the Commissioners on an adjudication under section 12 may appeal against it.
+(2) The appeal must be brought within 30 days of notice of the decision on the adjudication being given under section 12(3).
+(3) An appeal may only be brought on payment of—
+    (a) duty and any penalty in conformity with the Commissioners’ decision, and
+    (b) any interest that in conformity with that decision would be payable on stamping the instrument on the day on which the appeal is brought.
+(4) An appeal which relates only to the penalty payable on late stamping may be brought to the First-tier Tribunal in accordance with section 13A below.
+(5) Any other appeal may be brought in accordance with section 13B below to the High Court of the part of the United Kingdom in which the case has arisen.
+
+§ SA1891 s.13A — Appeal to the First-tier Tribunal .
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/13A | Part I Regulations applicable to Instruments generally > Adjudication Stamps
+(1) The following provisions apply in relation to an appeal under section 13(4).
+(2) Notice of appeal must be given in writing to the Commissioners, specifying the grounds of appeal.
+(3) …
+(4) …
+(5) On the appeal the First-tier Tribunal may—
+    (a) if it appears ... that no penalty should be paid, set the decision aside;
+    (b) if the amount determined appears ... to be appropriate, confirm the decision;
+    (c) if the amount determined appears ... to be excessive, reduce it to such other amount (including nil) as the tribunal considers appropriate;
+    (d) if the amount determined appears ... to be insufficient, increase it to such amount as the tribunal considers appropriate.
+(6) …
+(7) In addition to any right of appeal on a point of law under section 11(2) of the Tribunals, Courts and Enforcement Act 2007, the person liable to the penalty may appeal to the Upper Tribunal against the amount of the penalty which has been determined under subsection (5), but not against any decision which falls under section 11(5)(d) or (e) of that Act and was made in connection with the determination of the amount of the penalty.
+(7A) Section 11(3) and (4) of the Tribunals, Courts and Enforcement Act 2007 applies to the right of appeal under subsection (7) as it applies to the right of appeal under section 11(2) of that Act.
+(8) On an appeal under subsection (7) the Upper Tribunal has the same powers as are conferred on the First-tier Tribunal by subsection (5) above.
+
+§ SA1891 s.13B — Appeal to the High Court.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/13B | Part I Regulations applicable to Instruments generally > Adjudication Stamps
+(1) The following provisions apply in relation to an appeal under section 13(5).
+(2) The appellant may for the purposes of the appeal require the Commissioners to state and sign a case setting out the questions upon which they were required to adjudicate and their decision upon them.
+(3) The Commissioners shall thereupon state and sign a case and deliver the same to the person by whom it is required, and the case may, within 30 days thereafter, be set down by him for hearing.
+(4) On the appeal the court shall determine the questions submitted and may give such directions as it thinks fit with respect to the repayment of any duty or penalty paid in conformity with the Commissioners’ decision.
+
+§ SA1891 s.14 — Terms upon which instruments not duly stamped may be received in evidence.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/14 | Part I Regulations applicable to Instruments generally > Production of Instruments in Evidence
+(1) Upon the production of an instrument chargeable with any duty as evidence in any court of civil judicature in any part of the United Kingdom, or before any arbitrator or referee, notice shall be taken by the judge, arbitrator, or referee of any omission or insufficiency of the stamp thereon, and the instrument may, on payment to the officer of the court whose duty it is to read the instrument, or to the arbitrator or referee, of the amount of the unpaid duty, and any interest or penalty payable on stamping the same, and of a further sum of one pound, be received in evidence, saving all just exceptions on other grounds.
+(2) The officer, or arbitrator, or referee receiving the duty and any interest or penalty shall give a receipt for the same, and make an entry in a book kept for that purpose of the payment and of the amount thereof, and shall communicate to the Commissioners the name or title of the proceeding in which, and of the party from whom, he received the duty and any interest or penalty, and the date and description of the instrument, and shall pay over to such person as the Commissioners may appoint the money received by him for the duty and any interest or penalty.
+(3) On production to the Commissioners of any instrument in respect of which any duty, interest or penalty has been paid, together with the receipt, the payment of the duty, interest and penalty shall be denoted on the instrument.
+(4) Save as aforesaid, an instrument executed in any part of the United Kingdom, or relating, wheresoever executed, to any property situate, or to any matter or thing done or to be done, in any part of the United Kingdom, shall not, except in criminal proceedings, be given in evidence, or be available for any purpose whatever, unless it is duly stamped in accordance with the law in force at the time when it was executed.
+(5) Where an instrument is denoted with any duty by a method required or permitted by the law in force at the time when it is stamped, the method is to be treated for the purposes of subsection (4) as being in accordance with the law in force at the time when the instrument was executed.
+
+§ SA1891 s.15 — Stamping after execution.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/15 | Part I Regulations applicable to Instruments generally > Stamping of Instruments after Execution
+(1) An unstamped or insufficiently stamped instrument may be stamped after being executed on payment of the unpaid duty and any interest or penalty payable.
+(2) Any interest or penalty payable on stamping shall be denoted on the instrument by a particular stamp.
+
+§ SA1891 s.15A — Late stamping: interest.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/15A | Part I Regulations applicable to Instruments generally > Stamping of Instruments after Execution
+(1) Interest is payable on the stamping of an instrument which—
+    (a) is chargeable with ad valorem duty, and
+    (b) is not duly stamped within 30 days after the day on which the instrument was executed (whether in the United Kingdom or elsewhere).
+(2) Interest is payable on the amount of the unpaid duty from the end of the period of 30 days mentioned in subsection (1)(b) until the duty is paid.
+If an amount is lodged with the Commissioners in respect of the duty, the amount on which interest is payable is reduced by that amount.
+(3) Interest shall be calculated at the rate applicable under section 178 of the Finance Act 1989 (power of Treasury to prescribe rates of interest).
+(4) The amount of interest shall be rounded down (if necessary) to the nearest multiple of £5.
+No interest is payable if that amount is less than £25.
+(5) Interest under this section shall be paid without any deduction of income tax and shall not be taken into account in computing income or profits for any tax purposes.
+
+§ SA1891 s.15B — Late stamping: penalties.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/15B | Part I Regulations applicable to Instruments generally > Stamping of Instruments after Execution
+(1) A penalty is payable on the stamping of an instrument which is not presented for stamping within 30 days after—
+    (a) if the instrument is executed in the United Kingdom or relates to land in the United Kingdom, the day on which it is so executed;
+    (b) if the instrument is executed outside the United Kingdom and does not relate to land outside the United Kingdom, the day on which it is first received in the United Kingdom.
+(1A) For the purposes of subsection (1) every instrument that (whether or not it also relates to any other transaction) relates to a transaction which to any extent involves land in the United Kingdom is an instrument relating to land in the United Kingdom.
+(2) If the instrument is presented for stamping within one year after the end of the 30-day period mentioned in subsection (1), the maximum penalty is £300 or the amount of the unpaid duty, whichever is less.
+(3) If the instrument is not presented for stamping until after the end of the one-year period mentioned in subsection (2), the maximum penalty is £300 or the amount of the unpaid duty, whichever is greater.
+(4) The Commissioners may, if they think fit, mitigate or remit any penalty payable on stamping.
+(5) No penalty is payable if there is a reasonable excuse for the delay in presenting the instrument for stamping.
+
+§ SA1891 s.16 — Rolls, books, &c. to be open to inspection.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/16 | Part I Regulations applicable to Instruments generally > Entries upon Rolls, Books, &c.
+Every public officer having in his custody any rolls, books, records, papers, documents, or proceedings, the inspection whereof may tend to secure any duty, or to prove or lead to the discovery of any fraud or omission in relation to any duty, shall at all reasonable times permit any person thereto authorised by the Commissioners to inspect the rolls, books, records, papers, documents, and proceedings, and to take such notes and extracts as he may deem necessary, without fee or reward, and in case of refusal shall for every offence incur a penalty not exceeding £300.
+
+§ SA1891 s.17 — Penalty for enrolling, &c. instrument not duly stamped.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/17 | Part I Regulations applicable to Instruments generally > Entries upon Rolls, Books, &c.
+If any person whose office it is to enrol, register, or enter in or upon any rolls, books, or records any instrument chargeable with duty, enrols, registers, or enters any such instrument not being duly stamped, he shall incur a penalty not exceeding £300.
+
+§ SA1891 s.18 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/18 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.20 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/20 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.21 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/21 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.22 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/22 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.23 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/23 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.24 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/24 | Part II Regulations applicable to Particular Instruments
+
+§ SA1891 s.25 — Meaning of instrument of apprenticeship.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/25 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+…
+
+§ SA1891 s.26 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/26 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.27 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/27 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.28 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/28 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.29 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/29 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.32 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/32 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.34 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/34 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.35 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/35 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.40 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/40 | Part II Regulations applicable to Particular Instruments > Instruments of Apprenticeship
+
+§ SA1891 s.41 — Bills of sale.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/41 | Part II Regulations applicable to Particular Instruments > Bills of Sale
+A bill of sale is not to be registered under any Act for the time being in force relating to the registration of bills of sale unless the original, duly stamped, is produced to the proper officer.
+
+§ SA1891 s.42 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/42 | Part II Regulations applicable to Particular Instruments > Bills of Sale
+
+§ SA1891 s.43 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/43 | Part II Regulations applicable to Particular Instruments > Bills of Sale
+
+§ SA1891 s.44 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/44 | Part II Regulations applicable to Particular Instruments > Bills of Sale
+
+§ SA1891 s.45 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/45 | Part II Regulations applicable to Particular Instruments > Bills of Sale
+
+§ SA1891 s.49 — Provisions as to duty on charter-party.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/49 | Part II Regulations applicable to Particular Instruments > Charter-parties
+…
+
+§ SA1891 s.50 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/50 | Part II Regulations applicable to Particular Instruments > Charter-parties
+
+§ SA1891 s.52 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/52 | Part II Regulations applicable to Particular Instruments > Charter-parties
+
+§ SA1891 s.54 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/54 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+
+§ SA1891 s.55 — How ad valorem duty to be calculated in respect of stock and securities.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/55 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+(1) Where the consideration, or any part of the consideration, for a conveyance on sale consists of any stock or marketable security, the conveyance is to be charged with ad valorem duty in respect of the value of the stock or security.
+(1A) For the purposes of subsection (1), it is immaterial—
+    (a) whether, at the time of the execution of the conveyance on sale, the stock or marketable security is or has been issued or is to be issued; and
+    (b) in a case where the stock or marketable security is to be issued, when it is to be, or is, issued and whether the issue is certain or contingent.
+(2) Where the consideration, or any part of the consideration, for a conveyance on sale consists of any security not being a marketable security, the conveyance is to be charged with ad valorem duty in respect of the amount due on the day of the date thereof for principal and interest upon the security.
+
+§ SA1891 s.56 — How consideration consisting of periodical payments to be charged.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/56 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+(1) Where the consideration, or any part of the consideration, for a conveyance on sale consists of money payable periodically for a definite period not exceeding twenty years, so that the total amount to be paid can be previously ascertained, the conveyance is to be charged in respect of that consideration with ad valorem duty on such total amount.
+(2) Where the consideration, or any part of the consideration, for a conveyance on sale consists of money payable periodically for a definite period exceeding twenty years or on perpetuity, or for any indefinite period not terminable with life, the conveyance is to be charged in respect of that consideration with ad valorem duty on the total amount which will or may, according to the terms of sale, be payable during the period of twenty years next after the day of the date of the instrument.
+(3) Where the consideration, or any part of the consideration, for a conveyance on sale consists of money payable periodically during any life or lives, the conveyance is to be charged in respect of that consideration with ad valorem duty on the amount which will or may, according to the terms of sale, be payable during the period of twelve years next after the day of the date of the instrument.
+(4) …
+
+§ SA1891 s.57 — How conveyance in consideration of a debt, &c., to be charged.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/57 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+Where any property is conveyed to any person in consideration, wholly or in part, of any debt due to him, or subject either certainly or contingently to the payment or transfer of any money or stock, whether being or constituting a charge or incumbrance upon the property or not, the debt, money, or stock is to be deemed the whole or part, as the case may be, of the consideration in respect whereof the conveyance is chargeable with ad valorem duty.
+
+§ SA1891 s.58 — Direction as to duty in certain cases.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/58 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+(1) Where property contracted to be sold for one consideration for the whole is conveyed to the purchaser in separate parts or parcels by different instruments, the consideration is to be apportioned in such manner as the parties think fit, so that a distinct consideration for each separate part or parcel is set forth in the conveyance relating thereto, and such conveyance is to be charged with ad valorem duty in respect of such distinct consideration.
+(2) Where property contracted to be purchased for one consideration for the whole by two or more persons jointly, or by any person for himself and others, or wholly for others, is conveyed in parts or parcels by separate instruments to the persons by or for whom the same was purchased for distinct parts of the consideration, the conveyance of each separate part or parcel is to be charged with ad valorem duty in respect of the distinct part of the consideration therein specified.
+(3) Where there are several instruments of conveyance for completing the purchaser’s title to property sold, the principal instrument of conveyance only is to be charged with ad valorem duty, and the other instruments are to be respectively charged with such other duty as they may be liable to, but the last-mentioned duty shall not exceed the ad valorem duty payable in respect of the principal instrument.
+(4) Where a person having contracted for the purchase of any property, but not having obtained a conveyance thereof, contracts to sell the same to any other person, and the property is in consequence conveyed immediately to the sub-purchaser
+• then, except where—
+    a the chargeable consideration moving from the sub-purchaser is less than the value of the property immediately before the contract of sale to him, and
+    b the conveyance is not one to which section 107 of the Finance Act 1981 (sales of houses at discount by local authorities etc.) applies
+• the conveyance is to be charged with ad valorem duty in respect of the consideration moving from the sub-purchaser.
+(5) Where a person having contracted for the purchase of any property but not having obtained a conveyance contracts to sell the whole, or any part or parts thereof, to any other person or persons, and the property is in consequence conveyed by the original seller to different persons in parts or parcels then, except where the aggregate of the chargeable consideration for the sale of all such parts or parcels is less than the value of the whole of the property immediately before the contract for their sale or, as the case may be, the first contract for the sale of any of them, the conveyance of each part or parcel is to be charged with ad valorem duty in respect only of the consideration moving from the sub-purchaser thereof, without regard to the amount or value of the original consideration.
+(6) Where a sub-purchaser takes an actual conveyance of the interest of the person immediately selling to him, which is chargeable with ad valorem duty in respect of the consideration moving from him, and is duly stamped accordingly, any conveyance to be afterwards made to him of the same property by the original seller shall be chargeable only with such other duty as it may be liable to, but the last-mentioned duty shall not exceed the ad valorem duty.
+(7) Any reference in subsection (4) or subsection (5) of this section to chargeable consideration is a reference to consideration which falls to be brought into account in determining the duty (if any) chargeable on the conveyance to the sub-purchaser or, as the case may be, on the conveyance of each of the parts or parcels in question; and in any case where it is necessary for the purposes of either of those subsections to determine the value at any time of any property, that value shall be taken to be the price which the property might reasonably be expected to fetch on a sale at that time in the open market.
+
+§ SA1891 s.59 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/59 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+
+§ SA1891 s.60 — As to sale of an annuity or right not before in existence.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/60 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+Where upon the sale of any annuity or other right not before in existence such annuity or other right is not created by actual grant or conveyance, but is only secured by bond, warrant of attorney, covenant, contract, or otherwise, the bond or other instrument, or some one of such instruments, if there be more than one, is to be charged with the same duty as an actual grant or conveyance, and is for the purposes of this Act to be deemed an instrument of conveyance on sale.
+
+§ SA1891 s.61 — Principal instrument, how to be ascertained.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/61 | Part II Regulations applicable to Particular Instruments > Conveyances on Sale
+(1) In the cases herein-after specified the principal instrument is to be ascertained in the following manner;
+    (a),(b) . . .
+    (c) Where in Scotland there is a disposition or assignation executed by the seller, and any other instrument is executed for completing the title, the disposition or assignation is to be deemed the principal instrument.
+(2) In any other case the parties may determine for themselves which of several instruments is to be deemed the principal instrument, and may pay the ad valorem duty thereon accordingly.
+
+§ SA1891 s.62 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/62 | Part II Regulations applicable to Particular Instruments > Conveyances on any Occasion except Sale or Mortgage
+
+§ SA1891 s.63 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/63 | Part II Regulations applicable to Particular Instruments > Conveyances on any Occasion except Sale or Mortgage
+
+§ SA1891 s.69 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/69 | Part II Regulations applicable to Particular Instruments > Conveyances on any Occasion except Sale or Mortgage
+
+§ SA1891 s.72 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/72 | Part II Regulations applicable to Particular Instruments > Duplicates and Counterparts
+
+§ SA1891 s.73 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/73 | Part II Regulations applicable to Particular Instruments > Exchange and Partition or Division
+
+§ SA1891 s.74 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/74 | Part II Regulations applicable to Particular Instruments > Exchange and Partition or Division
+
+§ SA1891 s.75 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/75 | Part II Regulations applicable to Particular Instruments > Leases
+
+§ SA1891 s.76 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/76 | Part II Regulations applicable to Particular Instruments > Leases
+
+§ SA1891 s.77 — Directions as to duty in certain cases.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/77 | Part II Regulations applicable to Particular Instruments > Leases
+(1) A lease or tack, or agreement for a lease or tack, or with respect to any letting, is not to be charged with any duty in respect of any penal rent, or increased rent in the nature of a penal rent, thereby reserved or agreed to be reserved or made payable, or by reason of being made in consideration of the surrender or abandonment of any existing lease, tack, or agreement, or of relating to the same subject matter.
+(2) A lease made for any consideration in respect whereof it is chargeable with ad valorem duty, and in further consideration either of a covenant by the lessee to make, or of his having previously made, any substantial improvement of or addition to the property demised to him, or of any covenant relating to the matter of the lease, is not to be charged with any duty in respect of such further consideration.
+    (3),(4) . . .
+(5) …
+
+§ SA1891 s.78 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/78 | Part II Regulations applicable to Particular Instruments > Leases
+
+§ SA1891 s.79 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/79 | Part II Regulations applicable to Particular Instruments > Leases
+
+§ SA1891 s.81 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/81 | Part II Regulations applicable to Particular Instruments > Leases
+
+§ SA1891 s.82 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/82 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+
+§ SA1891 s.83 — Penalty on issuing, &c. foreign, &c. security not duly stamped
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/83 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+Every person who in the United Kingdom . . . assigns, transfers, negotiates, . . . any foreign security or commonwealth government security not being duly stamped, shall incur a penalty not exceeding £300.
+
+§ SA1891 s.84 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/84 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+
+§ SA1891 s.85 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/85 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+
+§ SA1891 s.86 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/86 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+
+§ SA1891 s.90 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/90 | Part II Regulations applicable to Particular Instruments > Marketable Securities and Foreign and Colonial Share Certificates
+
+§ SA1891 s.91 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/91 | Part II Regulations applicable to Particular Instruments > Policies of Insurance
+
+§ SA1891 s.92 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/92 | Part II Regulations applicable to Particular Instruments > Policies of Insurance
+
+§ SA1891 s.93 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/93 | Part II Regulations applicable to Particular Instruments > Policies of Insurance
+
+§ SA1891 s.94 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/94 | Part II Regulations applicable to Particular Instruments > Policies of Insurance
+
+§ SA1891 s.98 — Meaning of policy of life insurance and policy of insurance against accident.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/98 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+(1) …
+(2) …
+
+§ SA1891 s.99 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/99 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+
+§ SA1891 s.100 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/100 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+
+§ SA1891 s.101 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/101 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+
+§ SA1891 s.104 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/104 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+
+§ SA1891 s.107 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/107 | Part II Regulations applicable to Particular Instruments > Policies of Insurance except Policies of Sea Insurance
+
+§ SA1891 s.108 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/108 | Part II Regulations applicable to Particular Instruments > Stock Certificates to Bearer
+
+§ SA1891 s.109 — Penalty for issuing stock certificate unstamped.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/109 | Part II Regulations applicable to Particular Instruments > Stock Certificates to Bearer
+(1) Where the holder of a stock certificate to bearer has been entered on the register of the local authority as the owner of the share of stock described in the certificate, the certificate shall be forthwith cancelled so as to be incapable of being re-issued to any person.
+(2) …
+
+§ SA1891 s.110 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/110 | Part II Regulations applicable to Particular Instruments > Stock Certificates to Bearer
+
+§ SA1891 s.111 — Provisions as to warrants for goods.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/111 | Part II Regulations applicable to Particular Instruments > Warrants for Goods
+…
+
+§ SA1891 s.112 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/112 | Part III Supplemental
+
+§ SA1891 s.114 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/114 | Part III Supplemental > Composition for certain Stamp Duties.
+
+§ SA1891 s.115 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/115 | Part III Supplemental > Composition for certain Stamp Duties.
+
+§ SA1891 s.116 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/116 | Part III Supplemental > Composition for certain Stamp Duties.
+
+§ SA1891 s.117 — Conditions and agreements as to stamp duty void.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/117 | Part III Supplemental > Miscellaneous
+Every condition of sale framed with the view of precluding objection or requisition upon the ground of absence or insufficiency of stamp upon any instrument executed after the sixteenth day of May one thousand eight hundred and eighty-eight, and every contract, arrangement, or undertaking for assuming the liability on account of absence or insufficiency of stamp upon any such instrument or indemnifying against such liability, absence, or insufficiency, shall be void.
+
+§ SA1891 s.118 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/118 | Part III Supplemental > Miscellaneous
+
+§ SA1891 s.119 — Instruments relating to Crown property.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/119 | Part III Supplemental > Miscellaneous
+Except where express provision to the contrary is made by this or any other Act, an instrument relating to property belonging to the Crown, or being the private property of the sovereign, is to be charged with the same duty as an instrument of the same kind relating to property belonging to a subject.
+
+§ SA1891 s.120 — As to instruments charged with duty of 35s.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/120 | Part III Supplemental > Miscellaneous
+…
+
+§ SA1891 s.121 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/121 | Part III Supplemental > Miscellaneous
+
+§ SA1891 s.122 — Definitions.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/122 | Part III Supplemental > Miscellaneous
+(1) In this Act, unless the context otherwise requires,—
+    • The expression “Commissioners” means Commissioners of Inland Revenue:
+    • The expression “material” includes every sort of material upon which words or figures can be expressed:
+    • The expression “instrument” includes every written document:
+    • The expression “stamp” means as well a stamp produced by means of a die as an adhesive stamp:
+    • The expression “stamped”, with reference to instruments and material, applies as well to instruments and material bearing stamps produced by means of a die as to instruments and material having adhesive stamps affixed thereto:
+    • The expressions “executed” and “execution”, with reference to instruments not under seal, mean signed and signature: (but subject to subsection (1A) of this section)
+    • The expression “money” includes all sums expressed in British or in any foreign or colonial currency:
+    • The expression “stock” includes any share in any stocks or funds transferable by the Registrar of Government Stock . . ., any strip (within the meaning of section 47 of the Finance Act 1942) of any such stocks or funds,. . . and any share in the stocks or funds of any foreign or colonial state or government, or in the capital stock or funded debt of any county council, corporation, company, or society in the United Kingdom, or of any foreign or colonial corporation, company, or society:
+    • The expression “marketable security” means a security of such a description as to be capable of being sold in any stock market in the United Kingdom:
+    • ...
+    • “The expression “tribunal” means the First-tier Tribunal or, where determined by or under Tribunal Procedure Rules, the Upper Tribunal”.
+(1A) For the purposes of this Act a deed (or, in Scotland, a deed for which delivery is required) shall be treated as executed when it is delivered or, if it is delivered subject to conditions, when the conditions are fulfilled
+(2) In the application of this Act to Scotland expressions referring to the High Court shall be construed as referring to the Court of Session sitting as the Court of Exchequer.
+
+§ SA1891 s.123 — …
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/123 | Part III Supplemental > Repeal; Commencement; Short Title
+
+§ SA1891 s.124 — Commencement.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/124 | Part III Supplemental > Repeal; Commencement; Short Title
+This Act shall come into operation on the first day of January one thousand eight hundred and ninety-two.
+
+§ SA1891 s.125 — Short title.
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/section/125 | Part III Supplemental > Repeal; Commencement; Short Title
+This Act may be cited as the Stamp Act 1891.
+
+§ SA1891 Sch.SECOND — SECOND SCHEDULE
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/schedule/SECOND | SCHEDULES
+…
+
+§ SA1891 Sch.THIRD — THIRD SCHEDULE
+@ https://www.legislation.gov.uk/ukpga/Vict/54-55/39/schedule/THIRD | SCHEDULES
+…

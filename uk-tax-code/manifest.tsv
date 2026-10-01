@@ -1,0 +1,62 @@
+# abbr	path	group	note
+TMA1970	ukpga/1970/9	core	Taxes Management Act 1970 — administration, returns, enquiries, assessments, appeals
+IHTA1984	ukpga/1984/51	core	Inheritance Tax Act 1984
+ICTA1988	ukpga/1988/1	core	Income and Corporation Taxes Act 1988 (mostly rewritten; residual provisions)
+TCGA1992	ukpga/1992/12	core	Taxation of Chargeable Gains Act 1992 — capital gains tax
+SSCBA1992	ukpga/1992/4	core	Social Security Contributions and Benefits Act 1992 — National Insurance contributions
+VATA1994	ukpga/1994/23	core	Value Added Tax Act 1994
+CAA2001	ukpga/2001/2	core	Capital Allowances Act 2001
+ITEPA2003	ukpga/2003/1	core	Income Tax (Earnings and Pensions) Act 2003 — employment, pensions, social security income
+ITTOIA2005	ukpga/2005/5	core	Income Tax (Trading and Other Income) Act 2005 — trading, property, savings & investment income
+CRCA2005	ukpga/2005/11	core	Commissioners for Revenue and Customs Act 2005 — HMRC constitution
+ITA2007	ukpga/2007/3	core	Income Tax Act 2007 — rates, allowances, reliefs, residence, anti-avoidance
+CTA2009	ukpga/2009/4	core	Corporation Tax Act 2009 — trading, loan relationships, derivatives, intangibles
+CTA2010	ukpga/2010/4	core	Corporation Tax Act 2010 — losses, groups, distributions, close companies
+TIOPA2010	ukpga/2010/8	core	Taxation (International and Other Provisions) Act 2010 — double tax relief, transfer pricing, CFCs
+SA1891	ukpga/Vict/54-55/39	core	Stamp Act 1891 — stamp duty
+CEMA1979	ukpga/1979/2	core	Customs and Excise Management Act 1979
+HODA1979	ukpga/1979/5	core	Hydrocarbon Oil Duties Act 1979
+TPDA1979	ukpga/1979/7	core	Tobacco Products Duty Act 1979
+VERA1994	ukpga/1994/22	core	Vehicle Excise and Registration Act 1994
+TCTA2018	ukpga/2018/22	core	Taxation (Cross-border Trade) Act 2018 — customs duty, import VAT
+OTA1975	ukpga/1975/22	core	Oil Taxation Act 1975 — petroleum revenue tax
+EGPLA2022	ukpga/2022/40	core	Energy (Oil and Gas) Profits Levy Act 2022
+FA1986	ukpga/1986/41	finance	Finance Act 1986 — stamp duty reserve tax (Part 4), gifts with reservation
+FA1996	ukpga/1996/8	finance	Finance Act 1996 — landfill tax (Part 3)
+FA2000	ukpga/2000/17	finance	Finance Act 2000 — climate change levy (Sch 6)
+FA2001	ukpga/2001/9	finance	Finance Act 2001 — aggregates levy (Part 2)
+FA2002	ukpga/2002/23	finance	Finance Act 2002
+FA2003	ukpga/2003/14	finance	Finance Act 2003 — stamp duty land tax (Part 4)
+FA2004	ukpga/2004/12	finance	Finance Act 2004 — registered pension schemes (Part 4), DOTAS (Part 7), CIS
+FA2005	ukpga/2005/7	finance	Finance Act 2005
+F2A2005	ukpga/2005/22	finance	Finance (No. 2) Act 2005
+FA2006	ukpga/2006/25	finance	Finance Act 2006
+FA2007	ukpga/2007/11	finance	Finance Act 2007 — penalties for inaccuracies (Sch 24)
+FA2008	ukpga/2008/9	finance	Finance Act 2008 — HMRC information powers (Sch 36), failure-to-notify penalties (Sch 41)
+FA2009	ukpga/2009/10	finance	Finance Act 2009 — late filing / late payment penalties (Schs 55, 56)
+FA2010	ukpga/2010/13	finance	Finance Act 2010
+F2A2010	ukpga/2010/31	finance	Finance (No. 2) Act 2010
+F3A2010	ukpga/2010/33	finance	Finance (No. 3) Act 2010
+FA2011	ukpga/2011/11	finance	Finance Act 2011 — bank levy (Sch 19)
+FA2012	ukpga/2012/14	finance	Finance Act 2012
+FA2013	ukpga/2013/29	finance	Finance Act 2013 — ATED (Part 3), GAAR (Part 5), statutory residence test (Sch 45)
+FA2014	ukpga/2014/26	finance	Finance Act 2014 — follower notices & accelerated payments (Part 4)
+FA2015	ukpga/2015/11	finance	Finance Act 2015 — diverted profits tax (Part 3)
+F2A2015	ukpga/2015/33	finance	Finance (No. 2) Act 2015
+FA2016	ukpga/2016/24	finance	Finance Act 2016 — apprenticeship levy (Part 6)
+FA2017	ukpga/2017/10	finance	Finance Act 2017
+F2A2017	ukpga/2017/32	finance	Finance (No. 2) Act 2017 — making tax digital, loan charge
+FA2018	ukpga/2018/3	finance	Finance Act 2018
+FA2019	ukpga/2019/1	finance	Finance Act 2019 — non-resident CGT on UK land (Sch 1)
+FA2020	ukpga/2020/14	finance	Finance Act 2020 — digital services tax (Part 2)
+FA2021	ukpga/2021/26	finance	Finance Act 2021 — plastic packaging tax (Part 2)
+FA2022	ukpga/2022/3	finance	Finance Act 2022 — residential property developer tax (Part 2)
+FA2023	ukpga/2023/1	finance	Finance Act 2023
+F2A2023	ukpga/2023/30	finance	Finance (No. 2) Act 2023 — multinational top-up tax / Pillar Two (Part 3), alcohol duty (Part 2)
+FA2024	ukpga/2024/3	finance	Finance Act 2024
+F2A2024	ukpga/2024/12	finance	Finance (No. 2) Act 2024
+FA2025	ukpga/2025/8	finance	Finance Act 2025
+FA2026	ukpga/2026/11	finance	Finance Act 2026
+PAYEREGS2003	uksi/2003/2682	si	Income Tax (Pay As You Earn) Regulations 2003
+VATREGS1995	uksi/1995/2518	si	Value Added Tax Regulations 1995
+SSCREGS2001	uksi/2001/1004	si	Social Security (Contributions) Regulations 2001
