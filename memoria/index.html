@@ -1,0 +1,831 @@
+<title>Memoria</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column like a breviary page; rubricated initials and controls in red, review state in lapis. */
+:root {
+  --bg: #ECEEE9;
+  --surface: #F8F9F5;
+  --ink: #1B211F;
+  --muted: #5B6560;
+  --rule: #CBD1C9;
+  --veil: #D9DED6;
+  --rubric: #A3271C;
+  --rubric-ink: #FFFFFF;
+  --lapis: #2A4896;
+  --ok: #2C6A3E;
+  --err: #B0281C;
+  --serif: "Cardo", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131816; --surface: #1B221F; --ink: #E3E6DE; --muted: #98A39D; --rule: #2E3833;
+    --veil: #2B3430; --rubric: #E06A5E; --rubric-ink: #1A0F0D; --lapis: #94AAEE; --ok: #7CC08E; --err: #F07E72;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131816; --surface: #1B221F; --ink: #E3E6DE; --muted: #98A39D; --rule: #2E3833;
+  --veil: #2B3430; --rubric: #E06A5E; --rubric-ink: #1A0F0D; --lapis: #94AAEE; --ok: #7CC08E; --err: #F07E72;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--sans); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+.wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--lapis); outline-offset: 2px; }
+
+/* Header */
+header.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 22px; }
+.brand { font-family: var(--serif); font-size: 26px; letter-spacing: 0.04em; margin: 0; line-height: 1; }
+.brand b { color: var(--rubric); font-weight: 700; }
+.picker { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.picker select { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; max-width: 220px; }
+.due-chip { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--lapis); color: var(--lapis); white-space: nowrap; }
+.due-chip.clear { border-color: var(--rule); color: var(--muted); }
+
+nav.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--rule); scrollbar-width: none; }
+nav.tabs::-webkit-scrollbar { display: none; }
+nav.tabs button { background: none; border: 0; padding: 10px 12px 9px; border-bottom: 2px solid transparent; color: var(--muted); white-space: nowrap; font-weight: 500; }
+nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--rubric); }
+nav.tabs .step { font-family: var(--mono); font-size: 11px; color: var(--rubric); margin-right: 5px; }
+
+/* Shared */
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { border: 1px solid var(--rule); background: var(--surface); border-radius: 6px; padding: 7px 13px; font-weight: 500; }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--rubric); border-color: var(--rubric); color: var(--rubric-ink); }
+.btn.quiet { background: none; border-color: transparent; color: var(--muted); padding-inline: 6px; }
+.btn:disabled { opacity: .45; cursor: default; }
+.toggle { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 14px; user-select: none; }
+.toggle input { accent-color: var(--rubric); }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* The text page */
+.page { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 26px clamp(18px, 5vw, 40px); }
+.page h2 { font-family: var(--serif); font-weight: 400; font-size: 30px; margin: 0 0 2px; text-wrap: balance; }
+.page .sub { color: var(--muted); font-style: italic; font-family: var(--serif); margin: 0 0 18px; font-size: 17px; }
+.lines { display: flex; flex-direction: column; gap: 14px; }
+.ln { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; align-items: start; }
+.ln .la { font-family: var(--serif); font-size: 23px; line-height: 1.45; min-width: 0; }
+.ln .tr { grid-column: 1 / -1; color: var(--muted); font-size: 14px; font-style: italic; font-family: var(--serif); font-size: 16px; }
+.gap { height: 10px; }
+.init { color: var(--rubric); font-size: 2.1em; line-height: .8; font-weight: 700; margin-right: 1px; }
+.wd { background: none; border: 0; padding: 0 1px; margin: 0; font: inherit; border-radius: 3px; }
+.wd.gl:hover, .wd.on { background: var(--veil); }
+.say { background: none; border: 1px solid var(--rule); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; color: var(--muted); margin-top: 5px; }
+.say svg { width: 12px; height: 12px; fill: currentColor; }
+.glossbar { position: sticky; bottom: max(12px, env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 6px; font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
+.glossbar b { font-family: var(--serif); font-size: 19px; font-weight: 400; }
+.note { border-left: 2px solid var(--rubric); padding: 2px 0 2px 14px; color: var(--muted); font-size: 14px; max-width: 64ch; }
+.note p { margin: 0 0 6px; } .note p:last-child { margin: 0; }
+.note b { color: var(--ink); font-weight: 600; }
+
+/* Fade */
+.hid { color: var(--muted); letter-spacing: .06em; }
+.hid.peek { color: var(--lapis); letter-spacing: 0; }
+.fade-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.fade-ctl input[type=range] { flex: 1 1 180px; accent-color: var(--rubric); min-width: 0; }
+.fade-val { font-family: var(--mono); font-size: 13px; min-width: 9ch; }
+
+/* Typing */
+.tw { border-radius: 3px; transition: background .15s, color .15s; }
+.tw.hidden { color: transparent; background: var(--veil); }
+.tw.cur { box-shadow: 0 2px 0 var(--rubric); background: color-mix(in srgb, var(--rubric) 16%, transparent); }
+.tw.err { color: var(--err); text-decoration: underline wavy; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.tw.ok { color: var(--ink); }
+.ln.cue .la { color: var(--muted); font-size: 18px; }
+.typebar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; position: sticky; bottom: max(10px, env(safe-area-inset-bottom, 0px)); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 10px; box-shadow: 0 6px 20px -12px rgba(0,0,0,.35); }
+.typebar input { flex: 1 1 200px; min-width: 0; border: 1px solid var(--rule); background: var(--bg); border-radius: 6px; padding: 9px 11px; font-family: var(--mono); }
+.typebar .count { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.shake { animation: shake .25s; }
+@keyframes shake { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+
+/* Results / schedule */
+.result { display: flex; flex-direction: column; gap: 12px; }
+.score { font-family: var(--serif); font-size: 34px; margin: 0; }
+.score small { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+table.sched { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.sched td { padding: 8px 6px; border-top: 1px solid var(--rule); vertical-align: middle; }
+table.sched td:first-child { font-family: var(--serif); font-size: 16px; width: 100%; }
+.pips { display: inline-flex; gap: 3px; }
+.pips i { width: 7px; height: 12px; border-radius: 1px; background: var(--veil); }
+.pips i.f { background: var(--lapis); }
+.when { font-family: var(--mono); font-size: 12px; white-space: nowrap; color: var(--muted); }
+.when.due { color: var(--lapis); font-weight: 500; }
+.tablewrap { overflow-x: auto; }
+.mark-ok { color: var(--ok); } .mark-err { color: var(--err); }
+
+.stages { display: flex; flex-wrap: wrap; gap: 6px; }
+.stages button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); font-family: var(--mono); font-size: 12px; }
+.stages button.done { background: var(--veil); }
+.stages button.cur { border-color: var(--rubric); color: var(--rubric); font-weight: 600; }
+
+/* Method */
+.prose { max-width: 66ch; display: flex; flex-direction: column; gap: 22px; }
+.prose h3 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin: 0 0 4px; text-wrap: balance; }
+.prose p { margin: 0 0 8px; }
+.prose .how { color: var(--lapis); font-size: 14px; }
+.prose a { color: var(--lapis); }
+.prose ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.evidence { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--rule); color: var(--muted); vertical-align: 3px; margin-left: 6px; white-space: nowrap; }
+.evidence.strong { border-color: var(--ok); color: var(--ok); }
+
+/* Library */
+.lib { display: flex; flex-direction: column; }
+.lib-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--rule); }
+.lib-row .t { font-family: var(--serif); font-size: 19px; }
+.lib-row .m { color: var(--muted); font-size: 13px; }
+.lib-row.active .t { color: var(--rubric); }
+form.add { display: flex; flex-direction: column; gap: 10px; }
+form.add label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+form.add input, form.add textarea, form.add select, textarea.backup { border: 1px solid var(--rule); background: var(--surface); border-radius: 6px; padding: 8px 10px; }
+form.add textarea { font-family: var(--serif); font-size: 17px; min-height: 150px; resize: vertical; }
+textarea.backup { width: 100%; font-family: var(--mono); font-size: 12px; min-height: 70px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } .ln .la { font-size: 21px; } }
+.msg { font-size: 14px; color: var(--ok); }
+.msg.bad { color: var(--err); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1 class="brand"><b>M</b>emoria</h1>
+    <div class="picker">
+      <select id="textpick" aria-label="Text to learn"></select>
+      <span id="duechip" class="due-chip"></span>
+    </div>
+  </header>
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <main id="view"></main>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+/* ---------- Built-in texts ---------- */
+const BUILTIN = [
+  {
+    id: "pater-noster", title: "Pater Noster", subtitle: "The Lord's Prayer", lang: "la", builtin: true,
+    lines: [
+      "Pater noster, qui es in caelis,",
+      "sanctificetur nomen tuum.",
+      "Adveniat regnum tuum.",
+      "Fiat voluntas tua,",
+      "sicut in caelo et in terra.",
+      "Panem nostrum quotidianum da nobis hodie,",
+      "et dimitte nobis debita nostra,",
+      "sicut et nos dimittimus debitoribus nostris.",
+      "Et ne nos inducas in tentationem,",
+      "sed libera nos a malo.",
+      "Amen."
+    ],
+    trans: [
+      "Our Father, who art in heaven,",
+      "hallowed be thy name.",
+      "Thy kingdom come.",
+      "Thy will be done,",
+      "on earth as it is in heaven. (lit. as in heaven, so also on earth)",
+      "Give us this day our daily bread,",
+      "and forgive us our debts,",
+      "as we also forgive our debtors.",
+      "And lead us not into temptation,",
+      "but deliver us from evil.",
+      "Amen."
+    ],
+    gloss: {
+      pater: "father", noster: "our", qui: "who", es: "(you) are, art", in: "in, on",
+      caelis: "the heavens (ablative plural)", sanctificetur: "may it be hallowed (subjunctive, passive)",
+      nomen: "name", tuum: "your, thy", adveniat: "may it come (subjunctive)", regnum: "kingdom",
+      fiat: "let it be done (subjunctive of fio)", voluntas: "will", tua: "your, thy (feminine)",
+      sicut: "as, just as", caelo: "heaven (ablative)", et: "and; also, even", terra: "earth (ablative)",
+      panem: "bread (accusative)", nostrum: "our (accusative)", quotidianum: "daily (also spelled cotidianum)",
+      da: "give! (imperative)", nobis: "to us", hodie: "today (hoc + die, 'this day')",
+      dimitte: "forgive, let go! (imperative)", debita: "debts (accusative plural)", nostra: "our (plural)",
+      nos: "we; us", dimittimus: "we forgive", debitoribus: "to debtors (dative plural)", nostris: "our (dative plural)",
+      ne: "not (with subjunctive: do not)", inducas: "you lead (subjunctive)", tentationem: "temptation, trial (accusative)",
+      sed: "but", libera: "free, deliver! (imperative)", a: "from", malo: "evil, the evil one (ablative)",
+      amen: "so be it (from Hebrew)"
+    }
+  },
+  {
+    id: "ave-maria", title: "Ave Maria", subtitle: "Hail Mary", lang: "la", builtin: true,
+    lines: [
+      "Ave Maria, gratia plena,",
+      "Dominus tecum.",
+      "Benedicta tu in mulieribus,",
+      "et benedictus fructus ventris tui, Iesus.",
+      "Sancta Maria, Mater Dei,",
+      "ora pro nobis peccatoribus,",
+      "nunc et in hora mortis nostrae.",
+      "Amen."
+    ],
+    trans: [
+      "Hail Mary, full of grace,",
+      "the Lord is with thee.",
+      "Blessed art thou among women,",
+      "and blessed is the fruit of thy womb, Jesus.",
+      "Holy Mary, Mother of God,",
+      "pray for us sinners,",
+      "now and at the hour of our death.",
+      "Amen."
+    ],
+    gloss: {
+      ave: "hail", maria: "Mary", gratia: "with grace (ablative)", plena: "full", dominus: "the Lord",
+      tecum: "with you (te + cum)", benedicta: "blessed (feminine)", tu: "you", in: "in, among",
+      mulieribus: "women (ablative plural)", et: "and", benedictus: "blessed (masculine)", fructus: "fruit",
+      ventris: "of the womb", tui: "of you, thy", iesus: "Jesus", sancta: "holy", mater: "mother",
+      dei: "of God", ora: "pray! (imperative)", pro: "for, on behalf of", nobis: "us (ablative)",
+      peccatoribus: "sinners", nunc: "now", hora: "hour (ablative)", mortis: "of death", nostrae: "our (genitive)",
+      amen: "so be it"
+    }
+  }
+];
+
+/* ---------- State ---------- */
+const KEY = "memoria.v1";
+const defaults = () => ({ userTexts: [], progress: {}, current: "pater-noster", tab: "learn", showTrans: true, firstLetters: true });
+let S = defaults();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(defaults(), JSON.parse(raw)); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+const allTexts = () => BUILTIN.concat(S.userTexts);
+const getText = id => allTexts().find(t => t.id === id) || BUILTIN[0];
+const prog = id => (S.progress[id] ||= { lines: {}, fade: 0, chain: 1, history: [] });
+
+/* ---------- Text helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+function canon(ch, lang) {
+  ch = norm(ch);
+  if (lang === "la") { if (ch === "j") return "i"; if (ch === "v") return "u"; }
+  return ch;
+}
+function tokenize(line) {
+  return line.split(/\s+/).filter(Boolean).map(text => {
+    const n = norm(text);
+    return { text, norm: n, first: n.charAt(0) };
+  });
+}
+// units = non-empty lines, each with its index in t.lines
+const units = t => t.lines.map((l, i) => ({ idx: i, words: tokenize(l) })).filter(u => u.words.length);
+
+function today() { const d = new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 864e5); }
+const INTERVALS = [1, 1, 3, 7, 14, 30, 60, 120]; // days until next review, by box
+const MAXBOX = 7;
+const lineSt = (t, idx) => prog(t.id).lines[idx] || null;
+const isDue = st => !st || st.due <= today();
+const dueUnits = t => units(t).filter(u => isDue(lineSt(t, u.idx)));
+
+function whenLabel(st) {
+  if (!st) return { txt: "new", due: true };
+  const d = st.due - today();
+  if (d <= 0) return { txt: "due today", due: true };
+  if (d === 1) return { txt: "tomorrow", due: false };
+  return { txt: "in " + d + " days", due: false };
+}
+
+function hashSeed(str) { let h = 2166136261; for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- Speech (an Italian voice approximates Church Latin) ---------- */
+const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function";
+function speak(text, lang) {
+  if (!canSpeak) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const want = lang === "la" ? "it" : (lang || "en");
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(want));
+    if (v) u.voice = v;
+    u.lang = lang === "la" ? "it-IT" : (lang === "en" ? "en-US" : (lang || "en-US"));
+    u.rate = 0.82;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+const PLAY = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z"/></svg>';
+
+/* ---------- Shell ---------- */
+const TABS = [
+  ["learn", "Learn", "1"], ["fade", "Fade", "2"], ["chain", "Chain", "3"], ["recall", "Recall", "4"],
+  ["method", "Method", ""], ["library", "Library", ""]
+];
+const $ = (sel, root = document) => root.querySelector(sel);
+const view = $("#view");
+
+function renderShell() {
+  const pick = $("#textpick");
+  pick.innerHTML = allTexts().map(t => `<option value="${esc(t.id)}"${t.id === S.current ? " selected" : ""}>${esc(t.title)}</option>`).join("");
+  $("#tabs").innerHTML = TABS.map(([k, label, n]) =>
+    `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${n ? `<span class="step">${n}</span>` : ""}${label}</button>`).join("");
+  const t = getText(S.current);
+  const due = dueUnits(t).length;
+  const chip = $("#duechip");
+  chip.textContent = due ? `${due} line${due > 1 ? "s" : ""} due` : "all reviewed";
+  chip.className = "due-chip" + (due ? "" : " clear");
+}
+$("#textpick").addEventListener("change", e => { S.current = e.target.value; save(); chainPhase = "read"; render(); });
+$("#tabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-tab]"); if (!b) return;
+  S.tab = b.dataset.tab; save(); chainPhase = "read"; render();
+});
+
+function render() {
+  if (canSpeak) try { speechSynthesis.cancel(); } catch (e) {}
+  renderShell();
+  const t = getText(S.current);
+  view.innerHTML = "";
+  ({ learn: viewLearn, fade: viewFade, chain: viewChain, recall: viewRecall, method: viewMethod, library: viewLibrary }[S.tab] || viewLearn)(t);
+}
+
+function pageHead(t) {
+  return `<h2>${esc(t.title)}</h2>${t.subtitle ? `<p class="sub">${esc(t.subtitle)}</p>` : ""}`;
+}
+
+/* ---------- 1. Learn ---------- */
+function viewLearn(t) {
+  const hasGloss = t.gloss && Object.keys(t.gloss).length;
+  const hasTrans = t.trans && t.trans.some(Boolean);
+  let first = true;
+  const lines = t.lines.map((line, i) => {
+    if (!line.trim()) return `<div class="gap"></div>`;
+    const words = tokenize(line).map(w => {
+      let shown = esc(w.text);
+      if (first) { first = false; shown = `<span class="init">${esc(w.text.charAt(0))}</span>${esc(w.text.slice(1))}`; }
+      const g = hasGloss && t.gloss[w.norm];
+      return g ? `<button class="wd gl" data-n="${esc(w.norm)}" data-w="${esc(w.text.replace(/[^\p{L}\p{N}]/gu, ""))}">${shown}</button>` : `<span class="wd">${shown}</span>`;
+    }).join(" ");
+    return `<div class="ln"><div class="la">${words}</div>${canSpeak ? `<button class="say" data-say="${i}" aria-label="Listen to this line">${PLAY}</button>` : ""}${hasTrans && S.showTrans && t.trans[i] ? `<div class="tr">${esc(t.trans[i])}</div>` : ""}</div>`;
+  }).join("");
+
+  view.innerHTML = `
+  <div class="wrap">
+    <p class="lede">Read each line aloud and make sure you know what every word means. ${hasGloss ? "Tap a word for its meaning." : ""} Memory for words you understand is far stronger than for sounds alone.</p>
+    <div class="bar">
+      ${canSpeak ? `<button class="btn" id="sayall">${PLAY.replace("<svg", '<svg style="width:10px;height:10px;fill:currentColor;margin-right:6px"')}Listen to the whole text</button>` : ""}
+      ${hasTrans ? `<label class="toggle"><input type="checkbox" id="trtog"${S.showTrans ? " checked" : ""}> Show translation</label>` : ""}
+    </div>
+    <article class="page">${pageHead(t)}<div class="lines">${lines}</div></article>
+    <div class="glossbar" id="glossbar" hidden></div>
+    ${t.lang === "la" ? `<div class="note">
+      <p><b>Church Latin pronunciation.</b> C before e, i, ae sounds like <i>ch</i> (caelis = <i>CHEH-lees</i>). AE sounds like <i>eh</i>. TI before a vowel sounds like <i>tsee</i> (tentationem = <i>ten-tah-tsee-OH-nem</i>). G before e, i sounds like <i>j</i>. Every vowel is pronounced.</p>
+      <p>The Listen button uses an Italian voice, which comes close to ecclesiastical pronunciation.</p>
+    </div>` : ""}
+  </div>`;
+
+  const bar = $("#glossbar");
+  view.firstElementChild.addEventListener("click", e => {
+    const w = e.target.closest(".wd.gl");
+    if (w) {
+      view.querySelectorAll(".wd.on").forEach(x => x.classList.remove("on"));
+      w.classList.add("on");
+      bar.hidden = false;
+      bar.innerHTML = `<b>${esc(w.dataset.w)}</b><span>${esc(t.gloss[w.dataset.n])}</span>`;
+      return;
+    }
+    const s = e.target.closest("[data-say]");
+    if (s) speak(t.lines[+s.dataset.say], t.lang);
+  });
+  const sa = $("#sayall"); if (sa) sa.onclick = () => speak(t.lines.filter(Boolean).join(" "), t.lang);
+  const tt = $("#trtog"); if (tt) tt.onchange = () => { S.showTrans = tt.checked; save(); render(); };
+}
+
+/* ---------- 2. Fade (method of vanishing cues) ---------- */
+function viewFade(t) {
+  const p = prog(t.id);
+  const us = units(t);
+  const positions = [];
+  us.forEach(u => u.words.forEach((w, j) => { if (w.first) positions.push(u.idx + ":" + j); }));
+  const rnd = mulberry(hashSeed(t.id + t.lines.join("|")));
+  const order = positions.slice();
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+
+  view.innerHTML = `
+  <div class="wrap">
+    <p class="lede">Recite the text aloud, filling in the blanks from memory. Tap a blank only if you are stuck. When a level feels easy, fade more. When you stall, step back one level.</p>
+    <div class="fade-ctl">
+      <button class="btn" id="fminus" aria-label="Show more words">−</button>
+      <input type="range" id="fslider" min="0" max="10" step="1" value="${p.fade}" aria-label="Words hidden">
+      <button class="btn" id="fplus" aria-label="Hide more words">+</button>
+      <span class="fade-val" id="fval"></span>
+    </div>
+    <label class="toggle"><input type="checkbox" id="fltog"${S.firstLetters ? " checked" : ""}> Keep first letters as hints</label>
+    <article class="page">${pageHead(t)}<div class="lines" id="flines"></div></article>
+  </div>`;
+
+  const draw = () => {
+    const hidden = new Set(order.slice(0, Math.round(order.length * p.fade / 10)));
+    $("#fval").textContent = `${p.fade * 10}% hidden`;
+    $("#fslider").value = p.fade;
+    $("#flines").innerHTML = t.lines.map((line, i) => {
+      if (!line.trim()) return `<div class="gap"></div>`;
+      const ws = tokenize(line).map((w, j) => {
+        if (!hidden.has(i + ":" + j)) return `<span class="wd">${esc(w.text)}</span>`;
+        const m = w.text.match(/^([^\p{L}\p{N}]*)([\p{L}\p{N}̀-ͯ'’]+)(.*)$/u) || ["", "", w.text, ""];
+        const core = m[2];
+        const blank = S.firstLetters ? core.charAt(0) + "_".repeat(Math.max(1, core.length - 1)) : "_".repeat(core.length);
+        return `<button class="wd hid" data-a="${esc(w.text)}" data-b="${esc(m[1] + blank + m[3])}">${esc(m[1] + blank + m[3])}</button>`;
+      }).join(" ");
+      return `<div class="ln"><div class="la">${ws}</div></div>`;
+    }).join("");
+  };
+  const set = v => { p.fade = Math.max(0, Math.min(10, v)); save(); draw(); };
+  $("#fminus").onclick = () => set(p.fade - 1);
+  $("#fplus").onclick = () => set(p.fade + 1);
+  $("#fslider").oninput = e => set(+e.target.value);
+  $("#fltog").onchange = e => { S.firstLetters = e.target.checked; save(); draw(); };
+  $("#flines").addEventListener("click", e => {
+    const b = e.target.closest(".wd.hid"); if (!b) return;
+    const peek = b.classList.toggle("peek");
+    b.textContent = peek ? b.dataset.a : b.dataset.b;
+  });
+  draw();
+}
+
+/* ---------- Typing session: type the first letter of each word ---------- */
+function typingSession(host, t, items, onDone) {
+  const errs = {};
+  items.forEach(it => { if (!it.cue) errs[it.idx] = 0; });
+  host.innerHTML = `
+    <article class="page"><div class="lines" id="tlines"></div></article>
+    <div class="typebar">
+      <input id="typein" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type the first letter of each word" aria-label="First letter of the next word">
+      <span class="count" id="tcount"></span>
+      <button class="btn quiet" id="thint" title="Reveal the next word (counts as a miss)">Reveal word</button>
+    </div>`;
+  const seq = [];
+  const tl = $("#tlines", host);
+  items.forEach(it => {
+    const ln = document.createElement("div");
+    ln.className = "ln" + (it.cue ? " cue" : "");
+    const la = document.createElement("div"); la.className = "la";
+    if (it.cue) { la.textContent = t.lines[it.idx]; ln.title = "Context line, not tested"; }
+    else it.words.forEach((w, j) => {
+      const sp = document.createElement("span");
+      sp.className = "tw" + (w.first ? " hidden" : " ok");
+      sp.textContent = w.text;
+      la.appendChild(sp);
+      if (j < it.words.length - 1) la.appendChild(document.createTextNode(" "));
+      if (w.first) seq.push({ el: sp, w, idx: it.idx });
+    });
+    ln.appendChild(la); tl.appendChild(ln);
+  });
+  const input = $("#typein", host), count = $("#tcount", host);
+  let pos = 0, misses = 0, done = false;
+  const update = () => {
+    count.textContent = `${pos}/${seq.length} · ${misses} miss${misses === 1 ? "" : "es"}`;
+    seq.forEach((s, i) => s.el.classList.toggle("cur", i === pos && !done));
+    if (seq[pos]) seq[pos].el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const advance = ok => {
+    const s = seq[pos];
+    s.el.classList.remove("hidden");
+    s.el.classList.add(ok ? "ok" : "err");
+    if (!ok) { misses++; errs[s.idx]++; s.el.classList.add("shake"); }
+    pos++;
+    if (pos >= seq.length) {
+      done = true; input.disabled = true; update();
+      onDone({ errs, total: seq.length, misses });
+      return;
+    }
+    update();
+  };
+  input.addEventListener("input", () => {
+    const chars = [...input.value]; input.value = "";
+    for (const ch of chars) {
+      if (done) break;
+      if (!/[\p{L}\p{N}]/u.test(ch)) continue;
+      advance(canon(ch, t.lang) === canon(seq[pos].w.first, t.lang));
+    }
+  });
+  $("#thint", host).onclick = () => { if (!done) { advance(false); input.focus(); } };
+  tl.addEventListener("click", () => input.focus());
+  if (!seq.length) { done = true; onDone({ errs, total: 0, misses: 0 }); }
+  update();
+  setTimeout(() => { try { input.focus({ preventScroll: true }); } catch (e) {} }, 30);
+}
+
+/* ---------- 3. Chain (cumulative building) ---------- */
+let chainPhase = "read";
+function viewChain(t) {
+  const p = prog(t.id);
+  const us = units(t);
+  p.chain = Math.max(1, Math.min(us.length, p.chain || 1));
+  const k = p.chain;
+  const stages = us.map((u, i) => `<button data-stage="${i + 1}" class="${i + 1 === k ? "cur" : (i + 1 < k ? "done" : "")}" aria-label="Line ${i + 1}">${i + 1}</button>`).join("");
+  const range = k === 1 ? "line 1" : `lines 1–${k}`;
+
+  view.innerHTML = `
+  <div class="wrap">
+    <p class="lede">Add one line at a time, and always recite from the very first line. The joins between lines are where recitations break down, and this method rehearses every join on every pass.</p>
+    <div class="stages" id="stages">${stages}</div>
+    <div id="chainbody"></div>
+  </div>`;
+  $("#stages").onclick = e => { const b = e.target.closest("[data-stage]"); if (!b) return; p.chain = +b.dataset.stage; save(); chainPhase = "read"; render(); };
+  const body = $("#chainbody");
+
+  if (chainPhase === "read") {
+    const nu = us[k - 1];
+    const prev = us.slice(0, k - 1).map(u => `<div class="ln cue"><div class="la">${esc(t.lines[u.idx])}</div></div>`).join("");
+    body.innerHTML = `
+      <div class="wrap">
+        <article class="page">
+          <p class="label">New line ${k} of ${us.length}</p>
+          <div class="lines">
+            ${prev}
+            <div class="ln"><div class="la" style="font-size:27px">${esc(t.lines[nu.idx])}</div>${canSpeak ? `<button class="say" id="saynew" aria-label="Listen">${PLAY}</button>` : ""}${t.trans && t.trans[nu.idx] ? `<div class="tr">${esc(t.trans[nu.idx])}</div>` : ""}</div>
+          </div>
+        </article>
+        <div class="bar">
+          <button class="btn primary" id="gochain">Recite ${range} from memory</button>
+          <span class="lede" style="font-size:14px">Say the new line aloud twice, then look away.</span>
+        </div>
+      </div>`;
+    const sn = $("#saynew"); if (sn) sn.onclick = () => speak(t.lines[nu.idx], t.lang);
+    $("#gochain").onclick = () => { chainPhase = "type"; render(); };
+    return;
+  }
+
+  const host = document.createElement("div"); host.className = "wrap"; body.appendChild(host);
+  const res = document.createElement("div"); body.appendChild(res);
+  typingSession(host, t, us.slice(0, k).map(u => ({ idx: u.idx, words: u.words })), r => {
+    const clean = r.misses === 0;
+    const last = k === us.length;
+    res.innerHTML = `<div class="result" style="margin-top:18px">
+      <p class="score">${clean ? "Clean." : `${r.misses} miss${r.misses > 1 ? "es" : ""}.`} <small>${r.total - r.misses} of ${r.total} words from memory</small></p>
+      <div class="bar">
+        ${clean && !last ? `<button class="btn primary" id="cnext">Add line ${k + 1}</button>` : ""}
+        ${clean && last ? `<button class="btn primary" id="crecall">Whole text done. Start spaced review</button>` : ""}
+        <button class="btn${clean ? "" : " primary"}" id="cagain">Recite again from the top</button>
+        ${clean ? "" : `<button class="btn" id="creread">Reread line ${k}</button>`}
+      </div>
+    </div>`;
+    const on = (id, fn) => { const b = $("#" + id); if (b) b.onclick = fn; };
+    on("cnext", () => { p.chain = k + 1; save(); chainPhase = "read"; render(); });
+    on("crecall", () => { S.tab = "recall"; save(); render(); });
+    on("cagain", () => { chainPhase = "type"; render(); });
+    on("creread", () => { chainPhase = "read"; render(); });
+    res.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  });
+}
+
+/* ---------- 4. Recall (spaced review) ---------- */
+let recallScope = "all";
+function viewRecall(t) {
+  const p = prog(t.id);
+  const us = units(t);
+  const due = dueUnits(t);
+  if (recallScope === "due" && !due.length) recallScope = "all";
+  function schedHTML() {
+    const hist = p.history.slice(-5).reverse();
+    return `
+    <section>
+      <p class="label">Review schedule</p>
+      <div class="tablewrap"><table class="sched"><tbody>
+        ${us.map(u => {
+          const st = lineSt(t, u.idx), w = whenLabel(st), box = st ? st.box : 0;
+          return `<tr><td>${esc(t.lines[u.idx])}</td><td><span class="pips" title="Strength ${box} of ${MAXBOX}">${Array.from({ length: MAXBOX }, (_, i) => `<i class="${i < box ? "f" : ""}"></i>`).join("")}</span></td><td class="when${w.due ? " due" : ""}">${w.txt}</td></tr>`;
+        }).join("")}
+      </tbody></table></div>
+    </section>
+    ${hist.length ? `<section><p class="label">Recent sessions</p><div class="tablewrap"><table class="sched"><tbody>
+      ${hist.map(h => `<tr><td style="font-family:var(--sans);font-size:14px">${esc(h.label)}</td><td class="mono">${h.total - h.misses}/${h.total}</td><td class="when">${h.day === today() ? "today" : (today() - h.day) + "d ago"}</td></tr>`).join("")}
+    </tbody></table></div></section>` : ""}
+`;
+  }
+
+  view.innerHTML = `
+  <div class="wrap">
+    <p class="lede">Recite from memory with no cues and type the first letter of each word as you go. Lines you get fully right come back after longer and longer gaps (1, 3, 7, 14, 30, 60, 120 days). A miss sends the line back to the start.</p>
+    <div class="bar">
+      <button class="btn primary" id="rstart">Start recall</button>
+      <label class="toggle"><input type="radio" name="scope" value="all"${recallScope === "all" ? " checked" : ""}> Whole text</label>
+      <label class="toggle"><input type="radio" name="scope" value="due"${recallScope === "due" ? " checked" : ""}${due.length ? "" : " disabled"}> Only due lines (${due.length})</label>
+    </div>
+    <div id="rsession"></div>
+    <div id="rsched" class="wrap">${schedHTML()}</div>
+  </div>`;
+
+  view.querySelectorAll('input[name="scope"]').forEach(r => r.onchange = () => { recallScope = r.value; });
+  $("#rstart").onclick = () => start(recallScope === "due" ? due : us, true);
+
+  function buildItems(list) {
+    const set = new Set(list.map(u => u.idx));
+    const items = [];
+    list.forEach(u => {
+      const i = us.findIndex(x => x.idx === u.idx);
+      if (i > 0 && !set.has(us[i - 1].idx) && !(items.length && items[items.length - 1].idx === us[i - 1].idx)) items.push({ idx: us[i - 1].idx, cue: true });
+      items.push({ idx: u.idx, words: u.words });
+    });
+    return items;
+  }
+
+  function start(list, scheduled) {
+    const host = $("#rsession");
+    host.innerHTML = `<div class="wrap" id="rtype"></div><div id="rres"></div>`;
+    $("#rstart").disabled = true;
+    $("#rsched").hidden = true;
+    typingSession($("#rtype"), t, buildItems(list), r => {
+      if (scheduled) {
+        const d = today();
+        Object.entries(r.errs).forEach(([idx, n]) => {
+          const old = p.lines[idx];
+          const box = n === 0 ? Math.min(MAXBOX, (old ? old.box : 0) + 1) : 0;
+          p.lines[idx] = { box, due: d + INTERVALS[box], reviews: (old ? old.reviews : 0) + 1, lapses: (old ? old.lapses : 0) + (n ? 1 : 0) };
+        });
+        p.history.push({ day: d, total: r.total, misses: r.misses, label: list.length === us.length ? "Whole text" : `${list.length} due line${list.length > 1 ? "s" : ""}` });
+        p.history = p.history.slice(-50);
+        save(); renderShell();
+      }
+      $("#rsched").innerHTML = schedHTML();
+      $("#rsched").hidden = false;
+      const missed = list.filter(u => r.errs[u.idx] > 0);
+      const pct = r.total ? Math.round(100 * (r.total - r.misses) / r.total) : 100;
+      $("#rres").innerHTML = `<div class="result" style="margin-top:18px">
+        <p class="score">${pct}% <small>${r.total - r.misses} of ${r.total} words${scheduled ? ". Schedule updated." : " (practice drill, schedule unchanged)"}</small></p>
+        ${missed.length ? `<p class="lede">Missed in: ${missed.map(u => `<span class="mark-err" style="font-family:var(--serif)">${esc(t.lines[u.idx])}</span>`).join(" · ")}</p>` : `<p class="lede mark-ok">Every line recalled. Each will come back after a longer gap.</p>`}
+        <div class="bar">
+          ${missed.length ? `<button class="btn primary" id="rdrill">Drill the missed lines now</button>` : ""}
+          <button class="btn" id="rdone">Back to schedule</button>
+        </div>
+      </div>`;
+      const dr = $("#rdrill"); if (dr) dr.onclick = () => start(missed, false);
+      $("#rdone").onclick = () => render();
+      $("#rres").scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+  }
+}
+
+/* ---------- Method ---------- */
+function viewMethod() {
+  view.innerHTML = `
+  <div class="wrap">
+  <div class="prose">
+    <section>
+      <h3>The routine</h3>
+      <ol>
+        <li><b>Learn.</b> Read the text aloud with the translation until you know what each word means.</li>
+        <li><b>Fade.</b> Recite while words disappear, raising the level as it gets easy, up to 100%.</li>
+        <li><b>Chain.</b> Rebuild it line by line, always reciting from the top, until the whole text is clean.</li>
+        <li><b>Recall.</b> Recite the whole text from memory today, then come back whenever lines are due. Five minutes a day is enough.</li>
+      </ol>
+      <p style="margin-top:10px">A short prayer like the Pater Noster usually takes one or two sittings to get through steps 1–3. The schedule in step 4 is what makes it last.</p>
+    </section>
+
+    <section>
+      <h3>Test yourself instead of rereading <span class="evidence strong">strong evidence</span></h3>
+      <p>Students who practised recalling a prose passage kept much more of it a week later than students who spent the same time rereading it, even though rereading felt more effective at the time (<a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger &amp; Karpicke, 2006</a>).</p>
+      <p class="how">Here: every mode after Learn makes you produce the words before you see them.</p>
+    </section>
+
+    <section>
+      <h3>Space the reviews out <span class="evidence strong">strong evidence</span></h3>
+      <p>A meta-analysis of 317 experiments found that spreading practice over time beats cramming, and that the best gap between sessions grows the longer you want to remember (<a href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda et al., 2006</a>).</p>
+      <p class="how">Here: each line climbs a ladder of 1, 3, 7, 14, 30, 60 and 120 days. A miss drops it to the bottom.</p>
+    </section>
+
+    <section>
+      <h3>Remove the cues gradually <span class="evidence">clinical evidence</span></h3>
+      <p>The "method of vanishing cues" teaches material by showing it in full and then withdrawing letters across trials until none are left (<a href="https://pubmed.ncbi.nlm.nih.gov/3755140/" target="_blank" rel="noopener">Glisky, Schacter &amp; Tulving, 1986</a>). A later comparison found fast fading suited easy items and good memories, and slow fading suited harder material (<a href="https://doi.org/10.1080/096020100389219" target="_blank" rel="noopener">Riley &amp; Heaton, 2000</a>). Both studies were with memory-impaired patients, so treat the details as a guide rather than a rule.</p>
+      <p class="how">Here: the Fade slider. Step up when a level is easy, step back when you stall.</p>
+    </section>
+
+    <section>
+      <h3>Say it out loud <span class="evidence strong">strong evidence</span></h3>
+      <p>Words read aloud are remembered better than words read silently, which researchers call the production effect (<a href="https://doi.org/10.1037/a0018785" target="_blank" rel="noopener">MacLeod et al., 2010</a>). The benefit is clearest when spoken and silent material are mixed, so it helps most to speak the parts you are working on.</p>
+      <p class="how">Here: recite aloud in every mode, and use Listen to hear the pronunciation first.</p>
+    </section>
+
+    <section>
+      <h3>Know what you are saying <span class="evidence">good evidence</span></h3>
+      <p>Actors rarely learn lines by rote. They work out what each line means and why the character says it, and some recall roles verbatim years later. People who studied material by imagining explaining its meaning to someone retained more than rote learners (<a href="https://www.psychologicalscience.org/observer/to-be-or-or-um-line" target="_blank" rel="noopener">Noice &amp; Noice, 2006</a>).</p>
+      <p class="how">Here: the word meanings in Learn. In Latin, knowing that <i>panem</i> is the object and <i>da</i> is a command makes the word order feel inevitable instead of arbitrary.</p>
+    </section>
+
+    <section>
+      <h3>Build from the top <span class="evidence">practitioner method</span></h3>
+      <p>Adding one line at a time and always restarting from the beginning is the standard method among actors and people who learn liturgy. There is no controlled study of it that I could find. Its logic is that recitation fails at the transitions between lines, and this method rehearses the opening most and every join on every pass.</p>
+      <p class="how">Here: the Chain tab.</p>
+    </section>
+
+    <section>
+      <h3>Check with first letters <span class="evidence">practitioner method</span></h3>
+      <p>Typing only the first letter of each word lets you check verbatim recall quickly without typing whole words. It works as the last step of vanishing cues: you supply the whole word in your head and the first letter is your answer. Like chaining, it is widely used but not separately tested.</p>
+      <p class="how">Here: Chain and Recall. In Latin texts, i/j and u/v count as the same letter.</p>
+    </section>
+
+    <section>
+      <h3>For poetry later</h3>
+      <p>Add a poem in the Library with blank lines between stanzas. Meter and rhyme act as built-in error checks: when a line scans wrong, you know a word is wrong. For long poems, chain within a stanza first, then chain the stanzas.</p>
+      <p>If you start memorizing many poems, the method of loci (placing each stanza's opening image at a spot along a familiar walk) helps you keep their order and get from one stanza to the next. In one study, six weeks of training with it more than doubled novices' word-list recall, and the gains held four months later (<a href="https://doi.org/10.1016/j.neuron.2017.02.003" target="_blank" rel="noopener">Dresler et al., 2017</a>). Use it to hold the order of the stanzas; you still learn the wording itself with the steps above.</p>
+    </section>
+  </div>
+  </div>`;
+}
+
+/* ---------- Library ---------- */
+function viewLibrary(t) {
+  view.innerHTML = `
+  <div class="wrap">
+    <section class="lib">
+      <p class="label">Your texts</p>
+      ${allTexts().map(x => {
+        const us = units(x), p = S.progress[x.id], strong = p ? us.filter(u => (p.lines[u.idx] || {}).box >= 3).length : 0;
+        return `<div class="lib-row${x.id === t.id ? " active" : ""}">
+          <div><div class="t">${esc(x.title)}</div><div class="m">${us.length} lines${x.subtitle ? " · " + esc(x.subtitle) : ""} · ${strong} held a week or more</div></div>
+          <div class="bar">
+            <button class="btn" data-open="${esc(x.id)}">${x.id === t.id ? "Current" : "Open"}</button>
+            ${x.builtin ? "" : `<button class="btn quiet" data-del="${esc(x.id)}">Delete</button>`}
+          </div>
+        </div>`;
+      }).join("")}
+    </section>
+
+    <section>
+      <p class="label">Add a poem or prayer</p>
+      <form class="add" id="addform">
+        <div class="row2">
+          <label>Title<input id="ntitle" required placeholder="e.g. Ozymandias"></label>
+          <label>Author or subtitle<input id="nsub" placeholder="e.g. Percy Bysshe Shelley"></label>
+        </div>
+        <label>Language (sets the Listen voice)
+          <select id="nlang"><option value="en">English</option><option value="la">Latin (Church pronunciation)</option><option value="it">Italian</option><option value="fr">French</option><option value="de">German</option><option value="es">Spanish</option><option value="el">Greek</option></select>
+        </label>
+        <label>Text, one line per line, blank line between stanzas<textarea id="ntext" required></textarea></label>
+        <label>Translation, optional, matched line by line<textarea id="ntrans" style="min-height:90px"></textarea></label>
+        <div class="bar"><button class="btn primary" type="submit">Add to library</button><span class="msg" id="addmsg"></span></div>
+      </form>
+    </section>
+
+    <section>
+      <p class="label">Backup</p>
+      <p class="lede" style="font-size:14px">Progress is saved in this browser only. Copy a backup to move it to another device, then paste it there and restore.</p>
+      <div class="bar" style="margin:8px 0">
+        <button class="btn" id="bcopy">Copy backup</button>
+        <button class="btn" id="brestore">Restore from pasted backup</button>
+        <span class="msg" id="bmsg"></span>
+      </div>
+      <textarea class="backup" id="btext" aria-label="Backup text" placeholder="Paste a backup here to restore it"></textarea>
+    </section>
+  </div>`;
+
+  view.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { S.current = b.dataset.open; S.tab = "learn"; save(); chainPhase = "read"; render(); });
+  view.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    if (b.dataset.armed) {
+      const id = b.dataset.del;
+      S.userTexts = S.userTexts.filter(x => x.id !== id); delete S.progress[id];
+      if (S.current === id) S.current = BUILTIN[0].id;
+      save(); render();
+    } else { b.dataset.armed = "1"; b.textContent = "Confirm delete"; b.classList.remove("quiet"); }
+  });
+
+  $("#addform").onsubmit = e => {
+    e.preventDefault();
+    const title = $("#ntitle").value.trim();
+    const raw = $("#ntext").value.replace(/\r/g, "").replace(/\n{3,}/g, "\n\n").trim();
+    if (!title || !raw) return;
+    const lines = raw.split("\n").map(l => l.trim());
+    const tr = $("#ntrans").value.replace(/\r/g, "").replace(/\n{3,}/g, "\n\n").trim();
+    const trans = tr ? tr.split("\n").map(l => l.trim()) : [];
+    const id = "u-" + Date.now().toString(36);
+    S.userTexts.push({ id, title, subtitle: $("#nsub").value.trim(), lang: $("#nlang").value, lines, trans });
+    S.current = id; S.tab = "learn"; save(); render();
+  };
+
+  $("#bcopy").onclick = () => {
+    const data = JSON.stringify(S);
+    const ta = $("#btext"); ta.value = data;
+    const msg = $("#bmsg");
+    const fallback = () => { ta.focus(); ta.select(); msg.textContent = "Selected. Copy it with your keyboard or menu."; msg.className = "msg"; };
+    try { navigator.clipboard.writeText(data).then(() => { msg.textContent = "Copied."; msg.className = "msg"; }, fallback); } catch (err) { fallback(); }
+  };
+  $("#brestore").onclick = () => {
+    const msg = $("#bmsg");
+    try {
+      const d = JSON.parse($("#btext").value);
+      if (!d || typeof d !== "object" || !d.progress) throw new Error();
+      S = Object.assign(defaults(), d); S.tab = "library"; save(); render();
+      $("#bmsg").textContent = "Restored."; $("#bmsg").className = "msg";
+    } catch (err) { msg.textContent = "That doesn't look like a Memoria backup. Paste the full text you copied."; msg.className = "msg bad"; }
+  };
+}
+
+if (!allTexts().some(x => x.id === S.current)) S.current = BUILTIN[0].id;
+render();
+})();
+</script>
